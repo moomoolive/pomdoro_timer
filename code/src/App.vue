@@ -1,32 +1,56 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+  <div class="app">
+    <selection
+    v-if="showSelection"
+    />
+    <clock
+    v-if="showClock"
+    />
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import selection from './components/selection.vue'
+import clock from './components/clock.vue'
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+export default {
+  components: {
+    selection,
+    clock
+  },
+  data() {
+    return {
+      showSelection: true,
+      showClock: false
+    }
+  },
+  computed: {
+    appMode() {
+      return this.$store.state.mode
+    }
+  },
+  watch: {
+    appMode(value) {
+      if (this.appMode === 'selection') {
+        this.showClock = false
+        this.showSelection = true
+      }
+      else if (this.appMode === 'clock') {
+        this.showSelection = false
+        this.showClock = true
+      }
     }
   }
+}
+</script>
+
+<style lang="scss">
+html,
+body {
+  background-color: $backgroundColor !important;
+}
+
+.app {
+
 }
 </style>
