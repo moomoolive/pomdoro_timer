@@ -5,19 +5,22 @@
             buttonText="Button"
             icon="fas fa-coffee"
             color="green"
-            id='button1'
+            id='shortBreak'
+            @click.native="changeInterval('shortBreak')"
             />
             <selection-button
-            buttonText="Button"
             icon="fas fa-coffee"
             color="purple"
-            id='button2'
+            id='workInterval'
+            @click.native="changeInterval('workInterval')"
             />
             <selection-button
             buttonText="Button"
             icon="fas fa-coffee"
             color="brown"
-            id='button3'
+            id='longBreak'
+            size='large'
+            @click.native="changeInterval('longBreak')"
             />
         </div>
     </div>
@@ -30,6 +33,11 @@ export default {
     name: 'selectionButtonGroup',
     components: {
         selectionButton
+    },
+    methods: {
+        changeInterval(interval) {
+            this.$store.dispatch('changeInterval', interval)
+        }
     }
 }
 </script>
@@ -40,7 +48,7 @@ export default {
     margin-right: 2em;
 }
 
-#button1, #button2, #button3 {
+#shortBreak, #workInterval, #longBreak {
     display: inline-block;
     margin-left: 4em;
     margin-right: 4em;

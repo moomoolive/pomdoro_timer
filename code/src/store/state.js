@@ -6,5 +6,6 @@ export default {
         workSessions: 4
     },
     mode: 'selection',
-    sessionNumber: 0
+    sessionNumber: 0,
+    timeIntervalSelect: 'workInterval'
 }
