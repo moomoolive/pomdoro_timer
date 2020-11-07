@@ -64,10 +64,10 @@ export default {
 .text {
     font-weight: bold;
     &.medium {
-        font-size: 1.2em;
+        font-size: 0.7em;
     }
     &.large {
-        font-size: 1.8em;
+        font-size: 1.05em;
     }
 }
 </style>

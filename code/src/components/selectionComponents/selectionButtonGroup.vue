@@ -2,24 +2,24 @@
     <div>
         <div class="buttonGroup">
             <selection-button
-            buttonText="Button"
+            buttonText="Short Break"
             icon="fas fa-coffee"
             color="green"
             id='shortBreak'
             @click.native="changeInterval('shortBreak')"
             />
             <selection-button
+            buttonText="Work Time"
             icon="fas fa-coffee"
             color="purple"
             id='workInterval'
             @click.native="changeInterval('workInterval')"
             />
             <selection-button
-            buttonText="Button"
+            buttonText="Long Break"
             icon="fas fa-coffee"
             color="brown"
             id='longBreak'
-            size='large'
             @click.native="changeInterval('longBreak')"
             />
         </div>
@@ -43,11 +43,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.buttonGroup {
-    margin-left: 2em;
-    margin-right: 2em;
-}
-
 #shortBreak, #workInterval, #longBreak {
     display: inline-block;
     margin-left: 4em;
