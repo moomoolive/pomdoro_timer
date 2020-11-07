@@ -40,6 +40,10 @@ export default {
 }
 
 .button {
+    &.small {
+        height: 3em;
+        width: 3em;
+    }
     &.medium {
         height: 6em;
         width: 6em;
@@ -51,6 +55,10 @@ export default {
 }
 
 .icon {
+    &.small{
+        height:1.25em;
+        width: 1.25em;
+    }
     &.medium{
         height:2.5em;
         width: 2.5em;
@@ -63,6 +71,9 @@ export default {
 
 .text {
     font-weight: bold;
+    &.medium {
+        font-size: 0.35em;
+    }
     &.medium {
         font-size: 0.7em;
     }

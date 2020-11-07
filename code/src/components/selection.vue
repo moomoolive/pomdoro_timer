@@ -7,12 +7,17 @@
            />
         </div>
         <div>
+            <work-sessions
+            class="workSessionCounter"
+            />
+        </div>
+        <div>
             <selection-button
             icon="fas fa-play"
             buttonText="Let's Work!"
             size="large"
             class="playButton"
-            @click.native="changeInterval('workInterval')"
+            @click.native="startTimer"
             />
         </div>
     </div>
@@ -21,16 +26,28 @@
 <script>
 import selectionButtonGroup from './selectionComponents/selectionButtonGroup.vue'
 import selectionButton from './commonComponents/selectionButton.vue'
+import workSessions from './selectionComponents/workSessions.vue'
 
 export default {
     name: 'selection',
     components: {
         selectionButtonGroup,
-        selectionButton
+        selectionButton,
+        workSessions
     },
     data() {
         return {
-            currentTimeInterval: 'workInterval'
+
+        }
+    },
+    methods: {
+        startTimer() {
+            this.$store.dispatch('changeAppMode', 'clock')
+        }
+    },
+    computed: {
+        timeInterval() {
+            return this.$store.state.timeIntervalSelect
         }
     },
     created() {
@@ -44,8 +61,13 @@ export default {
     text-align: center;
 }
 
+.workSessionCounter {
+    text-align: center;
+    margin-top: $selectionButtonSpace;
+}
+
 .playButton {
     text-align: center;
-    margin-top: 3em;
+    margin-top: $selectionButtonSpace;
 }
 </style>
