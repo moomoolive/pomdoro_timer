@@ -10,14 +10,14 @@
             />
             <selection-button
             buttonText="Work Time"
-            icon="fas fa-coffee"
+            icon="fas fa-briefcase"
             color="purple"
             id='workInterval'
             @click.native="changeInterval('workInterval')"
             />
             <selection-button
             buttonText="Long Break"
-            icon="fas fa-coffee"
+            icon="fas fa-bed"
             color="brown"
             id='longBreak'
             @click.native="changeInterval('longBreak')"

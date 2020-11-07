@@ -1,7 +1,7 @@
 <template>
     <div>
         <b-button pill :class="'button '+ size" :id="color">
-            <i :class="icon + ' icon '+ size"></i>
+            <i v-if="!!icon" :class="icon + ' icon '+ size"></i>
             <div :class="'text '+ size">{{ buttonText }}</div>
         </b-button>
     </div>
@@ -15,7 +15,10 @@ export default {
             type: String,
             required: false
         },
-        icon: String,
+        icon: {
+            type: String,
+            required: false
+        },
         color: String,
         size: {
             type: String,
@@ -27,6 +30,50 @@ export default {
 </script>
 
 <style lang="scss" scoped>    
+$small: 3em;
+$medium: 6em;
+$large: 9em;
+
+.button {
+    &.small {
+        height: $small;
+        width: $small;
+    }
+    &.medium {
+        height: $medium;
+        width: $medium;
+    }
+    &.large {
+        height: $large;
+        width: $large;
+    }
+}
+
+.icon {
+    &.small{
+        @include iconSize($small)
+    }
+    &.medium{
+        @include iconSize($medium)
+    }
+    &.large {
+        @include iconSize($large)
+    }
+}
+
+.text {
+    font-weight: bold;
+    &.medium {
+        @include textSize($small)
+    }
+    &.medium {
+        @include textSize($medium)
+    }
+    &.large {
+        @include textSize($large)
+    }
+}
+
 #green {
     background-color: $primaryColor !important;
 }
@@ -37,48 +84,5 @@ export default {
 
 #brown {
     background-color: $tertiaryColor !important;
-}
-
-.button {
-    &.small {
-        height: 3em;
-        width: 3em;
-    }
-    &.medium {
-        height: 6em;
-        width: 6em;
-    }
-    &.large {
-        height: 9em;
-        width: 9em;
-    }
-}
-
-.icon {
-    &.small{
-        height:1.25em;
-        width: 1.25em;
-    }
-    &.medium{
-        height:2.5em;
-        width: 2.5em;
-    }
-    &.large {
-        height: 3.75em;
-        width: 3.75em;
-    }
-}
-
-.text {
-    font-weight: bold;
-    &.medium {
-        font-size: 0.35em;
-    }
-    &.medium {
-        font-size: 0.7em;
-    }
-    &.large {
-        font-size: 1.05em;
-    }
 }
 </style>

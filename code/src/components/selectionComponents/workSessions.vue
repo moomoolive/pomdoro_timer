@@ -1,13 +1,12 @@
 <template>
     <div>
         <div>
-            <h3>Work Sessions Until Break</h3>
             <selection-button
-            icon="fas fa-plus"
+            icon="fas fa-minus"
             color="brown"
-            id='addButton'
+            id='minusButton'
             size="small"
-            @click.native="incrementWorkSessions(1)"
+            @click.native="incrementWorkSessions(-1)"
             />
             <div id="display">
                 <b-button class="display" variant="danger" size="lg">
@@ -15,11 +14,11 @@
                 </b-button>
             </div>
             <selection-button
-            icon="fas fa-minus"
+            icon="fas fa-plus"
             color="brown"
-            id='minusButton'
+            id='addButton'
             size="small"
-            @click.native="incrementWorkSessions(-1)"
+            @click.native="incrementWorkSessions(1)"
             />
         </div>
     </div>

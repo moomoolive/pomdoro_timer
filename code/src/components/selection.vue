@@ -1,53 +1,58 @@
 <template>
     <div>
-        <h1>selection</h1>
-        <div>
+        <div class="selector">
+            <time-interval-selector
+            />
+        </div>
+        <div class="buttonGroup">
            <selection-button-group
-           class="buttonGroup"
            />
         </div>
-        <div>
+        <div class="workSessionCounter">
             <work-sessions
-            class="workSessionCounter"
             />
         </div>
-        <div>
-            <selection-button
-            icon="fas fa-play"
-            buttonText="Let's Work!"
-            size="large"
-            class="playButton"
-            @click.native="startTimer"
-            />
-        </div>
+        <p class="label">
+            Sessions Until Long Break
+        </p>
     </div>
 </template>
 
 <script>
 import selectionButtonGroup from './selectionComponents/selectionButtonGroup.vue'
-import selectionButton from './commonComponents/selectionButton.vue'
 import workSessions from './selectionComponents/workSessions.vue'
+import timeIntervalSelector from './selectionComponents/timeIntervalSelector.vue'
 
 export default {
     name: 'selection',
     components: {
         selectionButtonGroup,
-        selectionButton,
-        workSessions
+        workSessions,
+        timeIntervalSelector
     },
     data() {
         return {
 
         }
     },
-    methods: {
-        startTimer() {
-            this.$store.dispatch('changeAppMode', 'clock')
-        }
-    },
     computed: {
         timeInterval() {
             return this.$store.state.timeIntervalSelect
+        },
+        intervalSelected() {
+            let message = ''
+            switch (this.timeInterval) {
+                case "workInterval":
+                    message = "Work Time"
+                    break
+                case "longBreak":
+                    message = "Long Break"
+                    break
+                case "shortBreak":
+                     message = "Short Break"
+                     break
+            }
+            return message
         }
     },
     created() {
@@ -59,6 +64,7 @@ export default {
 <style lang="scss" scoped>
 .buttonGroup {
     text-align: center;
+    margin-top: $selectionButtonSpace;
 }
 
 .workSessionCounter {
@@ -66,8 +72,21 @@ export default {
     margin-top: $selectionButtonSpace;
 }
 
-.playButton {
-    text-align: center;
+.selector {
     margin-top: $selectionButtonSpace;
+}
+
+.label {
+    margin-top: $selectionButtonSpace/2;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.06em;
+    color: white;
+}
+
+.selectorLabel {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.5em;
 }
 </style>

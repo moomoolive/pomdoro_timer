@@ -1,0 +1,10 @@
+@mixin iconSize($buttonSize) {
+    $size: $buttonSize * 0.4166;
+    height: $size;
+    width: $size;    
+}
+
+@mixin textSize($buttonSize) {
+    $size: $buttonSize * 0.1;
+    font-size: $size;
+}

@@ -1,5 +1,6 @@
 <template>
   <div class="app">
+    <Header />
     <selection
     v-if="showSelection"
     />
@@ -12,11 +13,13 @@
 <script>
 import selection from './components/selection.vue'
 import clock from './components/clock.vue'
+import Header from './components/Header.vue'
 
 export default {
   components: {
     selection,
-    clock
+    clock,
+    Header
   },
   data() {
     return {
