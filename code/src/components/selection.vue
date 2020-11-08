@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container">
         <div class="selector">
             <!-- <time-interval-selector
             /> -->
@@ -9,11 +9,11 @@
             />
         </div>
         <div class="workSessionCounter">
-            <!-- <work-sessions
-            /> -->
+            <work-sessions
+            />
         </div>
         <p class="label">
-            <!-- Sessions Until Long Break -->
+            Sessions Until Long Break
         </p>
     </div>
 </template>
@@ -62,17 +62,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .buttonGroup {
-    text-align: center;
     margin-top: $selectionButtonSpace;
     height: 12%;
-    background-color: black;
 }
 
 .workSessionCounter {
-    text-align: center;
-    margin-top: $selectionButtonSpace;
+    margin-top: $selectionButtonSpace/2;
     height: 10%;
+    background-color: black;
 }
 
 .selector {
@@ -84,7 +89,7 @@ export default {
 }
 
 .label {
-    margin-top: $selectionButtonSpace/2;
+    margin-top: $selectionButtonSpace/4;
     text-align: center;
     font-weight: bold;
     font-size: 1.06em;

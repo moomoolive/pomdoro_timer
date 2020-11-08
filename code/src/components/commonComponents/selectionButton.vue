@@ -1,5 +1,5 @@
 <template>
-    <div ref="container">
+    <div ref="container" class="container">
         <b-button
         pill
         :id="color"
@@ -7,17 +7,14 @@
         :style="`width: ${buttonSize}px; height: ${buttonSize}px;`"
         >
             <div class="buttonContents">
-            <p
-            v-if="!!buttonText"
-            :style="`font-size: ${textSize}px; font-weight: bold;`"
-            >
-                <i
-                v-if="!!icon"
-                :class="icon"
-                :style="`font-size: 3em;`"
-                ></i><br>
-                {{ buttonText }}
-            </p>
+                <p :style="`font-size: ${textSize}px; font-weight: bold;`">
+                    {{ buttonText }}<br>
+                    <i
+                    v-if="!!icon"
+                    :class="icon"
+                    :style="`font-size: 3em;`"
+                    ></i>
+                </p>
             </div>
         </b-button>
     </div>
@@ -74,7 +71,7 @@ export default {
 </script>
 
 <style lang="scss" scoped> 
-.buttonContents {
+.buttonContents, .container {
     display: flex;
     flex-direction: column;
     justify-content: center;

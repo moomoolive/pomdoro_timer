@@ -1,22 +1,18 @@
 <template>
-    <div>
+    <div class="container">
         <selection-button
         icon="fas fa-minus"
         color="brown"
-        id='minusButton'
-        size="small"
+        id="minusButton"
         @click.native="incrementWorkSessions(-1)"
         />
-        <div id="display">
-            <b-button class="display" variant="danger" size="lg">
-                {{ display }}
-            </b-button>
-        </div>
+        <b-button class="display">
+            {{ display }}
+        </b-button>
         <selection-button
         icon="fas fa-plus"
         color="brown"
-        id='addButton'
-        size="small"
+        id="addButton"
         @click.native="incrementWorkSessions(1)"
         />
     </div>
@@ -48,18 +44,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#display {
-    margin-left: 0.5em;
-    margin-right: 0.5em;
+.container {
+    display: flex;
+    flex-direction: row !important;
+}
+
+#addButton {
+    justify-content: right !important;
+}
+
+#minusButton {
+    justify-content: right !important;
 }
 
 .display {
-    width: 5em !important;
+    width: 100%;
+    height: 75%;
     background-color: $secondaryColor !important;
-}
-
-#addButton, #display, #minusButton {
-    display: inline-block;
-    width: 33.3%;
+    font-weight: bold;
+    cursor: default !important;
 }
 </style>
