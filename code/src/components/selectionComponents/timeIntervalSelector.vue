@@ -1,12 +1,34 @@
 <template>
     <div>
         <div class="cssGrid">
-            <div style="grid-row: 2; grid-column: 2; text-align: center;">
-                <selection-button
-                icon="fas fa-play"
-                size="large"
-                @click.native="startTimer"
-                class="play"
+            <div v-for="n in 3" :key="n">
+                <sub-grid
+                :size="gridProperties[`grid1${n}`].size"
+                :icon="gridProperties[`grid1${n}`].icon"
+                :gridRow="gridProperties[`grid1${n}`].gridRow"
+                :gridColumn="gridProperties[`grid1${n}`].gridColumn"
+                :message="gridProperties[`grid1${n}`].message"
+                :style="`grid-row: ${1}; grid-column: ${n};`"
+                />
+            </div>
+            <div v-for="i in 3" :key="i + 27">
+                <sub-grid
+                :size="gridProperties[`grid2${i}`].size"
+                :icon="gridProperties[`grid2${i}`].icon"
+                :gridRow="gridProperties[`grid2${i}`].gridRow"
+                :gridColumn="gridProperties[`grid2${i}`].gridColumn"
+                :message="gridProperties[`grid2${i}`].message"
+                :style="`grid-row: ${2}; grid-column: ${i};`"
+                />
+            </div>
+            <div v-for="k in 3" :key="k + 89">
+                <sub-grid
+                :size="gridProperties[`grid3${k}`].size"
+                :icon="gridProperties[`grid3${k}`].icon"
+                :gridRow="gridProperties[`grid3${k}`].gridRow"
+                :gridColumn="gridProperties[`grid3${k}`].gridColumn"
+                :message="gridProperties[`grid3${k}`].message"
+                :style="`grid-row: ${3}; grid-column: ${k};`"
                 />
             </div>
         </div>
@@ -14,17 +36,21 @@
 </template>
 
 <script>
-import selectionButton from '../commonComponents/selectionButton.vue'
+import subGrid from './timeIntervalComponents/subGrid.vue'
+import gridData from './grids.js'
 
 export default {
     name: 'timeIntervalSelector',
     components: {
-        selectionButton
+        subGrid
     },
-    methods: {
-        startTimer() {
-            this.$store.dispatch('changeAppMode', 'clock')
+    data() {
+        return {
+            gridProperties: ''
         }
+    },
+    created() {
+        this.gridProperties = gridData
     }
 }
 </script>
@@ -43,11 +69,5 @@ $size: 32em;
     margin-right: auto;
     border-radius: 100%;
     align-items: center;
-}
-
-.play {
-    grid-row: 2;
-    grid-column: 2;
-    text-align: center;
 }
 </style>

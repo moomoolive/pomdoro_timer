@@ -9,5 +9,8 @@ export default {
     },
     incrementSesssionNumber(state, number) {
         state.timeIntervals.workSessions += number
+    },
+    updatedSelectedTime(state, payload) {
+        state.timeIntervals[payload.interval] = payload.time
     }
 }

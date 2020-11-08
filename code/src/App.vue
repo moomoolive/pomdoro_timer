@@ -12,13 +12,12 @@
 
 <script>
 import selection from './components/selection.vue'
-import clock from './components/clock.vue'
 import Header from './components/Header.vue'
 
 export default {
   components: {
     selection,
-    clock,
+    clock: () => import('./components/clock.vue'),
     Header
   },
   data() {

@@ -7,5 +7,8 @@ export default {
     },
     incrementSesssionNumber({ commit }, number) {
         commit('incrementSesssionNumber', number)
+    },
+    updatedSelectedTime({ commit }, payload) {
+        commit('updatedSelectedTime', payload)
     }
 }
