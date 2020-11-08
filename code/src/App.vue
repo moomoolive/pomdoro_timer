@@ -1,18 +1,21 @@
 <template>
-  <div class="app">
-    <Header />
-    <selection
-    v-if="showSelection"
-    />
-    <clock
-    v-if="showClock"
-    />
+  <div>
+    <div style="height: 10%;">
+      <Header />
+    </div>
+    <div v-if="showSelection" style="height: 90%;">
+      <selection />
+    </div>
+    <div v-if="showClock" style="height: 50%;">
+      <clock />
+    </div>
   </div>
 </template>
 
 <script>
 import selection from './components/selection.vue'
 import Header from './components/Header.vue'
+import jquery from 'jquery'
 
 export default {
   components: {
@@ -50,9 +53,13 @@ export default {
 html,
 body {
   background-color: $backgroundColor !important;
+  height: 100%;
+  width: 100%;
+  margin: 0;
 }
 
-.app {
-
+div {
+  height: 100%;
+  width: 100%;
 }
 </style>

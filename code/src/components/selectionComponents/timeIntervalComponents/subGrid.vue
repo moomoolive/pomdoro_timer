@@ -51,8 +51,7 @@ export default {
 <style lang='scss' scoped>
 .subGrid {
     display: grid;
-    height: 12em;
-    width: 12em;
+    width: 33.3%;
     grid-template-rows: repeat(19, 5.26%);
     grid-template-columns: repeat(19, 5.26%);
     align-items: center;

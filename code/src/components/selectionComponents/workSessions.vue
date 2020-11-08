@@ -1,26 +1,24 @@
 <template>
     <div>
-        <div>
-            <selection-button
-            icon="fas fa-minus"
-            color="brown"
-            id='minusButton'
-            size="small"
-            @click.native="incrementWorkSessions(-1)"
-            />
-            <div id="display">
-                <b-button class="display" variant="danger" size="lg">
-                    {{ display }}
-                </b-button>
-            </div>
-            <selection-button
-            icon="fas fa-plus"
-            color="brown"
-            id='addButton'
-            size="small"
-            @click.native="incrementWorkSessions(1)"
-            />
+        <selection-button
+        icon="fas fa-minus"
+        color="brown"
+        id='minusButton'
+        size="small"
+        @click.native="incrementWorkSessions(-1)"
+        />
+        <div id="display">
+            <b-button class="display" variant="danger" size="lg">
+                {{ display }}
+            </b-button>
         </div>
+        <selection-button
+        icon="fas fa-plus"
+        color="brown"
+        id='addButton'
+        size="small"
+        @click.native="incrementWorkSessions(1)"
+        />
     </div>
 </template>
 
@@ -62,5 +60,6 @@ export default {
 
 #addButton, #display, #minusButton {
     display: inline-block;
+    width: 33.3%;
 }
 </style>

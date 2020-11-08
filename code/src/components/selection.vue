@@ -1,19 +1,19 @@
 <template>
     <div>
         <div class="selector">
-            <time-interval-selector
-            />
+            <!-- <time-interval-selector
+            /> -->
         </div>
         <div class="buttonGroup">
-           <selection-button-group
-           />
-        </div>
-        <div class="workSessionCounter">
-            <work-sessions
+            <selection-button-group
             />
         </div>
+        <div class="workSessionCounter">
+            <!-- <work-sessions
+            /> -->
+        </div>
         <p class="label">
-            Sessions Until Long Break
+            <!-- Sessions Until Long Break -->
         </p>
     </div>
 </template>
@@ -65,15 +65,22 @@ export default {
 .buttonGroup {
     text-align: center;
     margin-top: $selectionButtonSpace;
+    height: 12%;
+    background-color: black;
 }
 
 .workSessionCounter {
     text-align: center;
     margin-top: $selectionButtonSpace;
+    height: 10%;
 }
 
 .selector {
     margin-top: $selectionButtonSpace;
+    height: 55%;
+    width: 55%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .label {
@@ -82,11 +89,6 @@ export default {
     font-weight: bold;
     font-size: 1.06em;
     color: white;
-}
-
-.selectorLabel {
-    text-align: center;
-    font-weight: bold;
-    font-size: 1.5em;
+    height: 7%;
 }
 </style>

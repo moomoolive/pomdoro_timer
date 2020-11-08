@@ -1,8 +1,24 @@
 <template>
-    <div>
-        <b-button pill :class="'button '+ size" :id="color">
-            <i v-if="!!icon" :class="icon + ' icon '+ size"></i>
-            <div :class="'text '+ size">{{ buttonText }}</div>
+    <div ref="container">
+        <b-button
+        pill
+        :id="color"
+        class="button"
+        :style="`width: ${buttonSize}px; height: ${buttonSize}px;`"
+        >
+            <div class="buttonContents">
+            <p
+            v-if="!!buttonText"
+            :style="`font-size: ${textSize}px; font-weight: bold;`"
+            >
+                <i
+                v-if="!!icon"
+                :class="icon"
+                :style="`font-size: 3em;`"
+                ></i><br>
+                {{ buttonText }}
+            </p>
+            </div>
         </b-button>
     </div>
 </template>
@@ -19,59 +35,50 @@ export default {
             type: String,
             required: false
         },
-        color: String,
-        size: {
-            type: String,
-            required: false,
-            default: 'medium'
+        color: String
+    },
+    data() {
+        return {
+            windowHeight: window.innerHeight,
+            height: 0
         }
+    },
+    methods: {
+        onResize() {
+            this.windowHeight = window.innerHeight
+        }
+    },
+    computed: {
+        buttonSize() {
+            return this.height * 0.9
+        },
+        textSize() {
+            return this.height * 0.1
+        }
+    },
+    watch: {
+        windowHeight(newVal, oldVal) {
+            this.height = this.$refs.container.clientHeight
+        }
+    },
+    mounted() {
+        this.$nextTick(() => {
+            window.addEventListener('resize', this.onResize)
+            this.height = this.$refs.container.clientHeight
+        })
+    },
+    beforeDestroy() {
+        window.removeEventListener('resize', this.onResize)
     }
 }
 </script>
 
-<style lang="scss" scoped>    
-$small: 3em;
-$medium: 6em;
-$large: 9em;
-
-.button {
-    &.small {
-        height: $small;
-        width: $small;
-    }
-    &.medium {
-        height: $medium;
-        width: $medium;
-    }
-    &.large {
-        height: $large;
-        width: $large;
-    }
-}
-
-.icon {
-    &.small{
-        @include iconSize($small)
-    }
-    &.medium{
-        @include iconSize($medium)
-    }
-    &.large {
-        @include iconSize($large)
-    }
-}
-
-.text {
-    font-weight: bold;
-    &.medium {
-        @include textSize($small)
-    }
-    &.medium {
-        @include textSize($medium)
-    }
-    &.large {
-        @include textSize($large)
-    }
+<style lang="scss" scoped> 
+.buttonContents {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 #green {
