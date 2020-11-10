@@ -19,15 +19,13 @@
 import selectionButtonGroup from './selectionComponents/selectionButtonGroup.vue'
 import workSessions from './selectionComponents/workSessions.vue'
 import timeIntervalSelector from './selectionComponents/timeIntervalSelector.vue'
-import intervalTimingDisplay from './selectionComponents/intervalTimingDisplay.vue'
 
 export default {
     name: 'selection',
     components: {
         selectionButtonGroup,
         workSessions,
-        timeIntervalSelector,
-        intervalTimingDisplay
+        timeIntervalSelector
     },
     data() {
         return {

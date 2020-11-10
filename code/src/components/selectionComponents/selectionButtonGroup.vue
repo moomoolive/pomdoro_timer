@@ -1,6 +1,7 @@
 <template>
     <div class="buttonContainer">
         <selection-button
+        ref="button"
         icon="fas fa-coffee"
         color="green"
         @click.native="changeInterval('shortBreak')"
@@ -26,10 +27,34 @@ export default {
     components: {
         selectionButton
     },
+    data() {
+        return {
+            isMounted: false
+        }
+    },
     methods: {
         changeInterval(interval) {
             this.$store.dispatch('changeInterval', interval)
         }
+    },
+    computed: {
+        smallScreenIndicator() {
+            if(this.isMounted) return this.$refs.button.windowHeight
+        }
+    },
+    watch: {
+        smallScreenIndicator(oldValue, newValue) {
+            const screenLength = 520
+            if (newValue <= screenLength && oldValue > screenLength) {
+                this.$store.dispatch('screenSize', false)
+            }
+            else if (newValue > screenLength && oldValue <= screenLength) {
+                this.$store.dispatch('screenSize', true)
+            }
+        }
+    },
+    mounted() {
+        this.isMounted = true
     }
 }
 </script>

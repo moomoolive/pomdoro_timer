@@ -10,5 +10,8 @@ export default {
     },
     updatedSelectedTime({ commit }, payload) {
         commit('updatedSelectedTime', payload)
+    },
+    screenSize({ commit }, boolean) {
+        commit('screenSize', boolean)
     }
 }

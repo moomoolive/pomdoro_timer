@@ -12,5 +12,8 @@ export default {
     },
     updatedSelectedTime(state, payload) {
         state.timeIntervals[payload.interval] = payload.time
+    },
+    screenSize(state, boolean) {
+        state.smallScreen = boolean
     }
 }

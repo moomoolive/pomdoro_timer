@@ -46,7 +46,8 @@
     },
     "rules": {
       "no-unused-vars": 0,
-      "vue/no-unused-components": 0
+      "vue/no-unused-components": 0,
+      "vue/return-in-computed-property": 0
     },
     "overrides": [
       {

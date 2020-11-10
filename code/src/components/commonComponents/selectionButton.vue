@@ -25,7 +25,7 @@ export default {
             required: false
         },
         text: {
-            type: Number,
+            type: String,
             required: false
         },
         color: String
@@ -33,8 +33,7 @@ export default {
     data() {
         return {
             windowHeight: window.innerHeight,
-            height: 0,
-            var: this.$parent.appMode
+            height: 0
         }
     },
     methods: {

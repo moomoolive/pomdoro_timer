@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div id="left">
+        <div id="left" v-if="!smallScreen">
             <button id="button" class="github">
                 <a :href="githubLink">Contribute to Source Code</a>
             </button>
@@ -28,6 +28,11 @@ export default {
     data() {
         return {
             githubLink: "https://github.com/moomoolive/pomdoro_timer"
+        }
+    },
+    computed: {
+        smallScreen() {
+            return this.$store.state.smallScreen
         }
     }
 }

@@ -6,4 +6,4 @@
 
 A pomodoro timer web app, with a simple and intuitive graphical UI.
 
-Built with Vuejs, Bootstrap, and fontawesome.
+Built with Vuejs and fontawesome.
