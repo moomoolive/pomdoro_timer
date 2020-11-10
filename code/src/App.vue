@@ -1,12 +1,12 @@
 <template>
-  <div>
-    <div style="height: 10%;">
+  <div class="appContainer">
+    <div style="height: 7%;">
       <Header />
     </div>
-    <div v-if="showSelection" style="height: 90%;">
+    <div v-if="showSelection">
       <selection />
     </div>
-    <div v-if="showClock" style="height: 50%;">
+    <div v-if="showClock">
       <clock />
     </div>
   </div>
@@ -14,14 +14,14 @@
 
 <script>
 import selection from './components/selection.vue'
+import clock from './components/clock.vue'
 import Header from './components/Header.vue'
-import jquery from 'jquery'
 
 export default {
   components: {
     selection,
-    clock: () => import('./components/clock.vue'),
-    Header
+    Header,
+    clock: () => import('./components/clock.vue')
   },
   data() {
     return {
@@ -61,5 +61,17 @@ body {
 div {
   height: 100%;
   width: 100%;
+}
+
+a {
+  color: black !important;
+  &:hover {text-decoration: none !important;}
+}
+
+.appContainer {
+  height: 85vh;
+  width: 85vw;
+  margin: auto;
+  margin-top: 3%;
 }
 </style>

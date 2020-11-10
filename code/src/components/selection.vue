@@ -1,20 +1,17 @@
 <template>
-    <div class="container">
-        <div class="selector">
-            <!-- <time-interval-selector
-            /> -->
+    <div>
+        <div style="height: 66%;">
+            <time-interval-selector />
         </div>
-        <div class="buttonGroup">
-            <selection-button-group
-            />
+        <div style="height: 13%; margin-top: 1%;">
+            <selection-button-group />
         </div>
-        <div class="workSessionCounter">
-            <work-sessions
-            />
+        <div style="height: 8%; margin-top: 2%;">
+            <work-sessions />
         </div>
-        <p class="label">
-            Sessions Until Long Break
-        </p>
+        <div style="height: 5%">
+            <p class="sessionLabel">Sessions to Long Break</p>
+        </div>
     </div>
 </template>
 
@@ -22,13 +19,15 @@
 import selectionButtonGroup from './selectionComponents/selectionButtonGroup.vue'
 import workSessions from './selectionComponents/workSessions.vue'
 import timeIntervalSelector from './selectionComponents/timeIntervalSelector.vue'
+import intervalTimingDisplay from './selectionComponents/intervalTimingDisplay.vue'
 
 export default {
     name: 'selection',
     components: {
         selectionButtonGroup,
         workSessions,
-        timeIntervalSelector
+        timeIntervalSelector,
+        intervalTimingDisplay
     },
     data() {
         return {
@@ -39,21 +38,6 @@ export default {
         timeInterval() {
             return this.$store.state.timeIntervalSelect
         },
-        intervalSelected() {
-            let message = ''
-            switch (this.timeInterval) {
-                case "workInterval":
-                    message = "Work Time"
-                    break
-                case "longBreak":
-                    message = "Long Break"
-                    break
-                case "shortBreak":
-                     message = "Short Break"
-                     break
-            }
-            return message
-        }
     },
     created() {
         this.$store.dispatch('changeInterval', 'workInterval')
@@ -62,38 +46,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.buttonGroup {
-    margin-top: $selectionButtonSpace;
-    height: 12%;
-}
-
-.workSessionCounter {
-    margin-top: $selectionButtonSpace/2;
-    height: 10%;
-    background-color: black;
-}
-
-.selector {
-    margin-top: $selectionButtonSpace;
-    height: 55%;
-    width: 55%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.label {
-    margin-top: $selectionButtonSpace/4;
+.sessionLabel {
+    font-size: 2vh;
     text-align: center;
     font-weight: bold;
-    font-size: 1.06em;
-    color: white;
-    height: 7%;
 }
 </style>

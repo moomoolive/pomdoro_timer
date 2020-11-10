@@ -1,22 +1,18 @@
 <template>
-    <div ref="container" class="container">
-        <b-button
-        pill
-        :id="color"
-        class="button"
-        :style="`width: ${buttonSize}px; height: ${buttonSize}px;`"
+    <div ref="container">
+        <button
+        :class="'button ' + color"
+        :style="`width: ${buttonSize}px; height: ${buttonSize}px; font-size: ${textSize}px;`"
         >
-            <div class="buttonContents">
-                <p :style="`font-size: ${textSize}px; font-weight: bold;`">
-                    {{ buttonText }}<br>
-                    <i
-                    v-if="!!icon"
-                    :class="icon"
-                    :style="`font-size: 3em;`"
-                    ></i>
-                </p>
+            <div v-if="!!text" style="height: 40%;">
+                <p class="text">{{ text }}</p>
             </div>
-        </b-button>
+            <i
+            v-if="!!icon"
+            :class="icon"
+            style="color: white;"
+            ></i>
+        </button>
     </div>
 </template>
 
@@ -24,12 +20,12 @@
 export default {
     name: "selectionButton",
     props: {
-        buttonText: {
+        icon: {
             type: String,
             required: false
         },
-        icon: {
-            type: String,
+        text: {
+            type: Number,
             required: false
         },
         color: String
@@ -37,7 +33,8 @@ export default {
     data() {
         return {
             windowHeight: window.innerHeight,
-            height: 0
+            height: 0,
+            var: this.$parent.appMode
         }
     },
     methods: {
@@ -50,7 +47,7 @@ export default {
             return this.height * 0.9
         },
         textSize() {
-            return this.height * 0.1
+            return this.height * 0.3
         }
     },
     watch: {
@@ -71,22 +68,27 @@ export default {
 </script>
 
 <style lang="scss" scoped> 
-.buttonContents, .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.button {
+    border-radius: 50%;
+    border-color: grey;
+    border-width: 0.05em;
+    border-style: solid;
+    min-width: 0px;
+    min-height: 0px;
+    text-align: center;
+    background-color: gray;
+    &.green {background-color: $primaryColor;}
+    &.purple {background-color: $secondaryColor;}
+    &.brown {background-color: $tertiaryColor;}
+    &:focus {border-width: 0.1em;}
 }
 
-#green {
-    background-color: $primaryColor !important;
-}
-
-#purple {
-    background-color: $secondaryColor !important;
-}
-
-#brown {
-    background-color: $tertiaryColor !important;
+.text {
+    position: relative;
+    top: -45%;
+    text-align: center;
+    font-size: 3vh;
+    font-weight: bold;
+    color: white;
 }
 </style>

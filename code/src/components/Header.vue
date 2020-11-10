@@ -1,15 +1,19 @@
 <template>
     <div>
-    <b-navbar class="header">
-        <b-navbar-brand>
-            <img src="https://img.icons8.com/cotton/64/000000/tomato--v2.png"/>
-        </b-navbar-brand>
-
-        <b-navbar-nav class="ml-auto">
-            <selection-button icon="fas fa-cog"/>
-        </b-navbar-nav>
-    </b-navbar>
-    <!-- <a href="https://icons8.com/icon/70472/tomato">Tomato icon by Icons8</a> -->
+        <div id="left">
+            <button id="button" class="github">
+                <a :href="githubLink">Contribute to Source Code</a>
+            </button>
+            <button id="button" class="desktop">
+                <a href="#">Download Desktop App</a>
+            </button>
+            <button id="button" class="feedback">
+                <a href="#">Submit Your Feedback</a>
+            </button>
+        </div>
+        <div id="right">
+            <selection-button id="right" icon="fas fa-cog"/>
+        </div>
     </div>
 </template>
 
@@ -20,12 +24,42 @@ export default {
     name: "Header",
     components: {
         selectionButton
+    },
+    data() {
+        return {
+            githubLink: "https://github.com/moomoolive/pomdoro_timer"
+        }
     }
 }
 </script>
 
 <style lang="scss" scoped>
-.header {
-    background-color: $tertiaryColor !important;
+#right {
+    text-align: right;
+    position: relative;
+    bottom: 50%;
+}
+
+#left {
+    text-align: left;
+    width: 60%;
+}
+
+#button {
+    border-radius: 20%;
+    height: 3vh;
+    width: 15vh;
+    font-size: 1vh;
+    font-weight: bold;
+    position: relative;
+    border-style: solid;
+    border-width: 0.1vh;
+    top: 20%;
+    margin-left: 1%;
+    margin-right: 2%;
+    overflow: visible;
+    &.github {background-color: $primaryColor;}
+    &.desktop {background-color: $secondaryColor;}
+    &.feedback {background-color: $tertiaryColor;}
 }
 </style>

@@ -6,9 +6,11 @@
         id="minusButton"
         @click.native="incrementWorkSessions(-1)"
         />
-        <b-button class="display">
-            {{ display }}
-        </b-button>
+        <div id="display">
+            <p class="displayText">
+                {{ display }}
+            </p>`
+        </div>
         <selection-button
         icon="fas fa-plus"
         color="brown"
@@ -46,22 +48,36 @@ export default {
 <style lang="scss" scoped>
 .container {
     display: flex;
-    flex-direction: row !important;
-}
-
-#addButton {
-    justify-content: right !important;
+    flex-direction: row;
 }
 
 #minusButton {
-    justify-content: right !important;
+    text-align: right;
 }
 
-.display {
-    width: 100%;
-    height: 75%;
-    background-color: $secondaryColor !important;
+#addButton {
+    text-align: left;
+}
+
+#display {
+    text-align: center;
+    background-color: $secondaryColor;
+    border-radius: 30%;
+    width: 75%;
+    height: 90%;
+    margin-left: 1%;
+    margin-right: 1%;
+    border-color: grey;
+    font-size: 1vh;
+    border-style: solid;
+    border-width: 0.3em;
+}
+
+.displayText {
+    position: relative;
+    top: 30%;
+    color: white;
     font-weight: bold;
-    cursor: default !important;
+    font-size: 200%;
 }
 </style>
