@@ -35,7 +35,7 @@ export default {
     computed: {
         timeInterval() {
             return this.$store.state.timeIntervalSelect
-        },
+        }
     },
     created() {
         this.$store.dispatch('changeInterval', 'workInterval')

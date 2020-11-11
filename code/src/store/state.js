@@ -3,7 +3,8 @@ export default {
         shortBreak: 5,
         workInterval: 25,
         longBreak: 30,
-        workSessions: 4
+        workSessions: 4,
+        currentSession: 1
     },
     mode: 'selection',
     timeIntervalSelect: 'workInterval',

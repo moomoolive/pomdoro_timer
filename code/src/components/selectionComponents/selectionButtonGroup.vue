@@ -39,7 +39,7 @@ export default {
     },
     computed: {
         smallScreenIndicator() {
-            if(this.isMounted) return this.$refs.button.windowHeight
+            if (this.isMounted) return this.$refs.button.windowHeight
         }
     },
     watch: {
