@@ -1,7 +1,7 @@
 <template>
     <div>
-        <div style="height: 8%; background: black">
-            session counter
+        <div style="height: 8%;">
+            <sessions-indicator />
         </div>
         <div style="height: 70%; background: white">
             clock
@@ -16,11 +16,13 @@
 
 <script>
 import clockButtonGroup from './clockComponents/clockButtonGroup.vue'
+import sessionsIndicator from './clockComponents/sessionsIndicator.vue'
 
 export default {
     name: 'clock',
     components: {
-        clockButtonGroup
+        clockButtonGroup,
+        sessionsIndicator
     },
     data() {
         return {
