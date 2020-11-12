@@ -3,13 +3,13 @@
         <div style="height: 8%;">
             <sessions-indicator />
         </div>
-        <div style="height: 70%">
+        <div style="height: 70%; z-index: 0; position:relative; margin-top: 1%;">
             <time-indicator
             v-if="showIndicator"
             @timer-finished="rerender"
             />
         </div>
-        <div style="height: 13%;">
+        <div style="height: 13%; z-index: 1; position:relative; margin-top: 2%;">
             <clock-button-group
             v-if="showButtons" 
             @rerender="rerender"
@@ -34,7 +34,7 @@ export default {
         return {
             showIndicator: true,
             showButtons: true,
-            play: true
+            play: false
         }
     },
     methods: {

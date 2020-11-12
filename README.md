@@ -4,6 +4,8 @@
 
 # Pomdoro Timer
 
-A pomodoro timer web app, with a simple and intuitive graphical UI.
+A pomodoro timer web app, with a simple and intuitive UI.
 
 Built with Vuejs and fontawesome.
+
+A big thank you to Ashfaq Ahmed for his 'CSS Percentage Circle' [blog post](https://codeconvey.com/css-percentage-circle/). It served as the main inspiration for the percentage circle I have in the app.

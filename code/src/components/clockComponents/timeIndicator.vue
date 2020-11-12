@@ -1,11 +1,29 @@
 <template>
     <div :class="'timeDisplay ' + backgroundColor">
+        <div
+        class="innerCircle one"
+        :style="`transform: rotate(${fill1.degrees}deg);`"
+        >
+            <div
+            :class="'fill one ' + fill1.color"
+            >hello</div>
+        </div>
+        <div
+        class="innerCircle two"
+        :style="`transform: rotate(${fill2.degrees}deg);`"
+        >
+            <div
+            :class="'fill two ' + fill2.color"
+            ></div>
+        </div>
+        <div class="lining">
+        </div>
         <div class="container">
             <div class="icon">
                 <i :class="icon" style="color: white;"></i>
             </div>
             <div class="timer">
-                {{ minutes }} : {{ seconds }}
+                {{ time.minutes }} : {{ time.seconds }}
             </div>
         </div>
     </div>
@@ -18,12 +36,23 @@ export default {
         return {
             backgroundColor: '',
             icon: '',
-            minutes: 10,
-            seconds: '00',
             nextInterval: '',
             isMounted: false,
             isDestroyed: false,
-            originalTime: 0
+            time: {
+                minutes: 10,
+                seconds: '00',
+                stopWatch: 0,
+                originalTime: 0
+            },
+            fill1: {
+                color: '',
+                degrees: 0
+            },
+            fill2: {
+                color: '',
+                degrees: 0
+            }
         }
     },
     methods: {
@@ -33,18 +62,20 @@ export default {
                     clearInterval(x)
                     return
                 }
-                let secs = parseInt(this.seconds)
-                if (secs === 0 && this.minutes !== 0) {
-                    this.seconds = '59'
-                    this.minutes--
+                let secs = parseInt(this.time.seconds)
+                if (secs === 0 && this.time.minutes !== 0) {
+                    this.time.seconds = '59'
+                    this.time.minutes--
+                    this.time.stopWatch++
                 }
-                else if (this.minutes === 0 && this.seconds === '00') {
+                else if (this.time.minutes === 0 && this.time.seconds === '00') {
                     this.$store.dispatch('changeInterval', this.nextInterval)
                     this.$emit('timer-finished', 'timeFinished')
                     clearInterval(x)
                 } else {
                     const k = secs - 1 < 10? `0${secs - 1}` : `${secs - 1}`
-                    this.seconds = k
+                    this.time.seconds = k
+                    this.time.stopWatch++
                 }
             }, 1000)
         }
@@ -56,36 +87,50 @@ export default {
         appMode() {
         return this.$store.state.mode
         },
-        timeLeftFraction() {
-            const totalTime = this.originalTime * 60
-            const timeNow = (this.minutes * 60) + parseInt(this.seconds)
-            return Math.round((timeNow/totalTime) * 100)
+        fillMover() {
+            const totalTime = this.time.originalTime * 60
+            const elapsedTimePercent = this.time.stopWatch/totalTime
+            return Math.ceil(elapsedTimePercent*10_000)/10_000
         }
     },
     watch: {
         isPlaying() {
             this.countDown()
+        },
+        fillMover() {
+            if (this.fillMover >= 0.4_999) {
+                this.fill2.degrees = 0
+                this.fill2.color = this.backgroundColor
+
+                this.fill1.degrees = (this.fillMover - 0.5) * 360
+            } 
+            else if (this.fillMover >= 0.9_999) {
+                this.fill1.degrees = 0
+                this.fill1.color = this.backgroundColor
+            } else {
+                this.fill2.degrees = (this.fillMover * 360)
+            }
         } 
     },
     created() {
         const times = this.$store.state.timeIntervals
         const currentInterval = this.$store.state.timeIntervalSelect
-        this.minutes = this.originalTime = times[currentInterval]
+        this.time.minutes = this.time.originalTime = times[currentInterval]
         switch(currentInterval) {
                 case 'workInterval':
-                    this.backgroundColor = 'workInterval'
                     this.icon = 'fas fa-briefcase'
-                    this.nextInterval = 'shortBreak'
+                    this.nextInterval = this.backgroundColor = 'shortBreak'
+                    this.fill1.color = this.fill2.color = 'workInterval'
                     break
                 case 'shortBreak':
-                    this.backgroundColor = 'shortBreak'
                     this.icon = "fas fa-coffee"
-                    this.nextInterval = 'workInterval'
+                    this.nextInterval = this.backgroundColor = 'workInterval'
+                    this.fill1.color = this.fill2.color = 'shortBreak'
                     break
                 case 'longBreak':
-                    this.backgroundColor = 'longBreak'
                     this.icon = "fas fa-bed"
-                    this.nextInterval = 'workInterval'
+                    this.nextInterval = this.backgroundColor = 'workInterval'
+                    this.fill1.color = this.fill2.color = 'longBreak'
                     break 
         }
     },
@@ -100,25 +145,71 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.workInterval{background: $secondaryColor}
+.shortBreak{background: $primaryColor;}
+.longBreak{background: $tertiaryColor;}
+
 .timeDisplay {
     width: 60vh;
     height: 97%;
     position: relative;
+    z-index: 0;
     top: 1%;
     margin: 0 auto;
     border-radius: 50%;
     border-style: solid;
     border-color: gray;
     border-width: 0.2vh;
-    &.workInterval{background: $secondaryColor}
-    &.shortBreak{background: $primaryColor;}
-    &.longBreak{background: $tertiaryColor;}
+    padding: 0;
+}
+
+.innerCircle {
+    width: 50%;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    animation: ease-in-out 1s;
+    &.one {
+        float: left;
+        transform-origin: 100%  50%;
+    }
+    &.two {
+        float: right;
+        transform-origin: 1.7% 48.8%;
+    }
+}
+
+.fill {
+    width: 200%;
+    border-radius: 50%;
+    position: absolute;
+    z-index: 1;
+    border-style: none;
+    border-width: 0.1vh;
+    &.one {
+    }
+    &.two {
+        right: 0%;
+    }
 }
 
 .container {
     height: 40%;
     position: relative;
-    top: 9%;
+    z-index: 2;
+    top: -70%;
+}
+
+.lining {
+    background: transparent;
+    border: gray solid 2vh;
+    position: absolute;
+    z-index: 2;
+    border-radius: 50%;
+    width: 60.05vh;
+    height: 102.2%;
+    left: -0.35%;
+    bottom: -0.3%;
 }
 
 .timer{

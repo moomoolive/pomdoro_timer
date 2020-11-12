@@ -40,6 +40,7 @@ export default {
         },
         pausePlay() {
             this.$emit('rerender', true)
+            console.log('press')
         },
         toSelection() {
             this.$store.dispatch('changeAppMode', 'selection')
