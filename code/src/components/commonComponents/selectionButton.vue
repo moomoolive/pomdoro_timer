@@ -32,6 +32,7 @@ export default {
     },
     data() {
         return {
+            windowWidth: window.innerWidth,
             windowHeight: window.innerHeight,
             height: 0
         }
@@ -39,6 +40,7 @@ export default {
     methods: {
         onResize() {
             this.windowHeight = window.innerHeight
+            this.windowWidth = window.innerWidth
         }
     },
     computed: {

@@ -15,5 +15,8 @@ export default {
     },
     screenSize(state, boolean) {
         state.smallScreen = boolean
+    },
+    updateCurrentSession(state, value) {
+        state.timeIntervals.currentSession += value
     }
 }

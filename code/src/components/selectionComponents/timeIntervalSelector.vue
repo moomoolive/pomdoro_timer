@@ -158,7 +158,7 @@ export default {
 
 #display {
     position: relative;
-    left: -90%;
+    left: -120%;
     top: -40%;
 }
 </style>

@@ -2,12 +2,11 @@
     <div class="buttonContainer">
         <selection-button
         :icon="leftIcon"
-        color="green"
+        :color="leftButtonColor"
         @click.native="nextInterval"
         />
         <selection-button
         :icon="middleIcon"
-        color="purple"
         @click.native="pausePlay"
         />
         <selection-button
@@ -30,7 +29,8 @@ export default {
         return {
             leftIcon: '',
             interval: '',
-            middleIcon: ''
+            middleIcon: '',
+            leftButtonColor: ''
         }
     },
     methods: {
@@ -42,7 +42,6 @@ export default {
             this.$emit('rerender', true)
         },
         toSelection() {
-            console.log('hit')
             this.$store.dispatch('changeAppMode', 'selection')
         }
     },
@@ -58,14 +57,18 @@ export default {
                 if (this.$store.getters.isLastSession) {
                     this.leftIcon = "fas fa-bed"
                     this.interval = "longBreak"
+                    this.leftButtonColor = 'brown'
                 } else {
                     this.leftIcon = 'fas fa-coffee'
                     this.interval = 'shortBreak'
+                    this.leftButtonColor = 'green'
                 }
                 break
+            case 'longBreak':
             case 'shortBreak':
                 this.leftIcon = 'fas fa-briefcase'
                 this.interval = 'workInterval'
+                this.leftButtonColor = 'purple'
                 break
         }
     }

@@ -13,5 +13,8 @@ export default {
     },
     screenSize({ commit }, boolean) {
         commit('screenSize', boolean)
+    },
+    updateCurrentSession({ commit }, value) {
+        commit('updateCurrentSession', value)
     }
 }

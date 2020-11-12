@@ -6,7 +6,7 @@ export default {
         workSessions: 4,
         currentSession: 1
     },
-    mode: 'selection',
+    mode: 'clock',
     timeIntervalSelect: 'workInterval',
     smallScreen: false
 }
