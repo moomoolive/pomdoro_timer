@@ -28,27 +28,19 @@ export default {
     data() {
         return {
             leftIcon: '',
-            interval: '',
             middleIcon: '',
             leftButtonColor: ''
         }
     },
     methods: {
         nextInterval(interval) {
-            this.$store.dispatch('changeInterval', this.interval)
-            this.$emit('rerender')
+            this.$emit('rerender', 'changeInterval')
         },
         pausePlay() {
-            this.$emit('rerender', true)
-            console.log('press')
+            this.$emit('rerender', 'pause/play')
         },
         toSelection() {
-            this.$store.dispatch('changeAppMode', 'selection')
-        }
-    },
-    computed: {
-        timeInterval() {
-            return this.$store.state.timeIntervalSelect
+            this.$emit('rerender', 'stop')
         }
     },
     created() {
@@ -57,18 +49,15 @@ export default {
             case 'workInterval':
                 if (this.$store.getters.isLastSession) {
                     this.leftIcon = "fas fa-bed"
-                    this.interval = "longBreak"
                     this.leftButtonColor = 'brown'
                 } else {
                     this.leftIcon = 'fas fa-coffee'
-                    this.interval = 'shortBreak'
                     this.leftButtonColor = 'green'
                 }
                 break
             case 'longBreak':
             case 'shortBreak':
                 this.leftIcon = 'fas fa-briefcase'
-                this.interval = 'workInterval'
                 this.leftButtonColor = 'purple'
                 break
         }

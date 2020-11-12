@@ -30,16 +30,6 @@ export default {
         },
         currentSession() {
             return this.$store.state.timeIntervals.currentSession
-        },
-        timeInterval() {
-            return this.$store.state.timeIntervalSelect
-        }
-    },
-    watch: {
-        timeInterval(newValue, oldValue) {
-            if (oldValue === 'longBreak' && newValue === 'workInterval') {
-                this.$store.dispatch('updateCurrentSession', - this.$store.state.timeIntervals.currentSession + 1)
-            }
         }
     }
 }

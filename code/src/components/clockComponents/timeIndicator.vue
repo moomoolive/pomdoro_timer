@@ -6,7 +6,7 @@
         >
             <div
             :class="'fill one ' + fill1.color"
-            >hello</div>
+            ></div>
         </div>
         <div
         class="innerCircle two"
@@ -36,9 +36,10 @@ export default {
         return {
             backgroundColor: '',
             icon: '',
-            nextInterval: '',
-            isMounted: false,
-            isDestroyed: false,
+            lifeCycleSignals: {
+                isMounted: false,
+                isDestroyed: false
+            },
             time: {
                 minutes: 10,
                 seconds: '00',
@@ -58,7 +59,7 @@ export default {
     methods: {
         countDown() {
             const x = setInterval(() => {
-                if (this.appMode === 'selection' || !this.isPlaying || this.isDestroyed) {
+                if (this.appMode === 'selection' || !this.isPlaying || this.lifeCycleSignals.isDestroyed) {
                     clearInterval(x)
                     return
                 }
@@ -69,7 +70,6 @@ export default {
                     this.time.stopWatch++
                 }
                 else if (this.time.minutes === 0 && this.time.seconds === '00') {
-                    this.$store.dispatch('changeInterval', this.nextInterval)
                     this.$emit('timer-finished', 'timeFinished')
                     clearInterval(x)
                 } else {
@@ -82,7 +82,7 @@ export default {
     },
     computed: {
         isPlaying() {
-            if (this.isMounted) return this.$parent.play
+            if (this.lifeCycleSignals.isMounted) return this.$parent.play
         },
         appMode() {
         return this.$store.state.mode
@@ -119,27 +119,26 @@ export default {
         switch(currentInterval) {
                 case 'workInterval':
                     this.icon = 'fas fa-briefcase'
-                    this.nextInterval = this.backgroundColor = 'shortBreak'
+                    this.backgroundColor = 'shortBreak'
                     this.fill1.color = this.fill2.color = 'workInterval'
                     break
                 case 'shortBreak':
                     this.icon = "fas fa-coffee"
-                    this.nextInterval = this.backgroundColor = 'workInterval'
+                    this.backgroundColor = 'workInterval'
                     this.fill1.color = this.fill2.color = 'shortBreak'
                     break
                 case 'longBreak':
                     this.icon = "fas fa-bed"
-                    this.nextInterval = this.backgroundColor = 'workInterval'
+                    this.backgroundColor = 'workInterval'
                     this.fill1.color = this.fill2.color = 'longBreak'
                     break 
         }
     },
     mounted() {
-        this.isMounted = true
+        this.lifeCycleSignals.isMounted = true
     },
     beforeDestroy() {
-        this.isDestroyed = true
-        if (this.icon === "fas fa-coffee")this.$store.dispatch('updateCurrentSession', 1)
+        this.lifeCycleSignals.isDestroyed = true
     }
 }
 </script>
@@ -175,6 +174,9 @@ export default {
     }
     &.two {
         float: right;
+        // I can't find a way to have the right-side fill to rotate without
+        // parts of it peeking out from behind the lining
+        // TBD 
         transform-origin: 1.7% 48.8%;
     }
 }
@@ -186,8 +188,6 @@ export default {
     z-index: 1;
     border-style: none;
     border-width: 0.1vh;
-    &.one {
-    }
     &.two {
         right: 0%;
     }

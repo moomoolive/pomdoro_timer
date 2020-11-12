@@ -30,8 +30,8 @@ export default {
     },
     methods:{
         incrementWorkSessions(number) {
-            if (this.display - 1 <= 0 && number === -1) {
-                alert(`You cannot have less than 1 work sessions!`)
+            if (this.display - 1 <= 1 && number === -1) {
+                alert(`You cannot have less than 2 work sessions!`)
             } 
             else if (this.display + 1 >= 11 && number === 1) {
                 alert(`You cannot have more than 10 work sessions!`)
