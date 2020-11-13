@@ -34,7 +34,7 @@ export default {
         return {
             showIndicator: true,
             showButtons: true,
-            play: false,
+            play: true,
             nextInterval: ''
         }
     },
@@ -51,6 +51,10 @@ export default {
         incrementSession(number) {
             this.$store.dispatch('updateCurrentSession', number) 
         },
+        playAlarm() {
+            const audio = new Audio(require('../assets/sound.mp3'))
+            audio.play()
+        },
         events(value) {
             if (value === 'changeInterval') {
                 this.$store.dispatch( value, this.nextInterval)
@@ -64,6 +68,7 @@ export default {
                 this.$store.dispatch('changeInterval', this.nextInterval)
                 this.play = false
                 this.rerender('showIndicator')
+                this.playAlarm()
                 if (this.nextInterval === 'workInterval') this.incrementSession(1)
             }
             else if (value === 'stop') {

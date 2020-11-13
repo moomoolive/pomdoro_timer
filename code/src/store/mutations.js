@@ -18,5 +18,11 @@ export default {
     },
     updateCurrentSession(state, value) {
         state.timeIntervals.currentSession += value
+    },
+    setDefaults(state, payload) {
+        state.timeIntervals.shortBreak = payload.shortBreak
+        state.timeIntervals.workInterval = payload.workInterval
+        state.timeIntervals.longBreak = payload.longBreak
+        state.timeIntervals.workSessions = payload.workSessions
     }
 }

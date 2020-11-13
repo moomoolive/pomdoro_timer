@@ -7,7 +7,7 @@
       <selection />
     </div>
     <div v-if="showClock" >
-      <clock/>
+      <clock />
     </div>
   </div>
 </template>
@@ -24,8 +24,8 @@ export default {
   },
   data() {
     return {
-      showSelection: false,
-      showClock: true
+      showSelection: true,
+      showClock: false
     }
   },
   computed: {
@@ -35,17 +35,21 @@ export default {
   },
   watch: {
     appMode() {
-        if (this.appMode === 'clock') {
-          this.showSelection = false
-          this.showClock = true
-        }
-        else if (this.appMode === 'selection') {
-          this.showClock = false
-          this.showSelection = true
-        }
+      console.log('hit')
+      if (this.appMode === 'selection') {
+        this.showClock = false
+        this.showSelection = true
       }
+      else if (this.appMode === 'clock') {
+        this.showSelection = false
+        this.showClock = true
+      }
+    }
+  },
+  created() {
+    const defaults = JSON.parse(localStorage.getItem('default'))
+    if (defaults) this.$store.dispatch('setDefaults', defaults)
   }
-
 }
 </script>
 

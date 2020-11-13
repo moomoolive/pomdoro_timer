@@ -15,12 +15,24 @@
             <p class="text">{{ longBreak }}</p>
             <p class="text description">Mins</p>
         </div>
+        <button @click="onClick" class="button">Set As Default</button>
     </div>
 </template>
 
 <script>
 export default {
     name: 'intervalTimingDisplay',
+    methods: {
+        onClick() {
+            const defaultIntervals = {
+                shortBreak: this.shortBreak,
+                workInterval: this.workInterval,
+                longBreak: this.longBreak,
+                workSessions: this.workSessions
+            }
+            localStorage.setItem('default', JSON.stringify(defaultIntervals))
+        }
+    },
     computed: {
         shortBreak() {
             return this.$store.state.timeIntervals.shortBreak
@@ -30,6 +42,9 @@ export default {
         },
         longBreak() {
             return this.$store.state.timeIntervals.longBreak
+        },
+        workSessions() {
+            return this.$store.state.timeIntervals.workSessions
         }
     }
 }
@@ -79,5 +94,10 @@ export default {
     &.description {
         font-size: 1.2vh;
     }
+}
+
+.button {
+    position: relative;
+    top: 10%;
 }
 </style>

@@ -16,5 +16,8 @@ export default {
     },
     updateCurrentSession({ commit }, value) {
         commit('updateCurrentSession', value)
+    },
+    setDefaults({ commit }, payload) {
+        commit('setDefaults', payload)
     }
 }
