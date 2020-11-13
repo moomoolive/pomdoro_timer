@@ -68,6 +68,7 @@ export default {
                     this.time.seconds = '59'
                     this.time.minutes--
                     this.time.stopWatch++
+                    document.title = `(${this.time.minutes}:${this.time.seconds}) Pomodoro Timer`
                 }
                 else if (this.time.minutes === 0 && this.time.seconds === '00') {
                     this.$emit('timer-finished', 'timeFinished')
@@ -76,6 +77,7 @@ export default {
                     const k = secs - 1 < 10? `0${secs - 1}` : `${secs - 1}`
                     this.time.seconds = k
                     this.time.stopWatch++
+                    document.title = `(${this.time.minutes}:${this.time.seconds}) Pomodoro Timer`
                 }
             }, 1000)
         }

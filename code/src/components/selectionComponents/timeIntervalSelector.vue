@@ -79,13 +79,13 @@ export default {
     data() {
         return {
             selectorColor: 'purple',
-            selectorMessage: 'Work Time',
+            selectorMessage: 'Work Session',
             scaleFactor: 5
         }
     },
     methods: {
         play() {
-            this.$store.dispatch('changeAppMode', 'clock')
+            this.$emit('play')
         }
     },
     computed: {
@@ -102,7 +102,7 @@ export default {
                 case 'workInterval':
                     this.selectorColor = 'purple'
                     this.scaleFactor = 5
-                    this.selectorMessage = 'Work Time'
+                    this.selectorMessage = 'Work Session'
                     break
                 case 'shortBreak':
                     this.selectorColor = 'green'

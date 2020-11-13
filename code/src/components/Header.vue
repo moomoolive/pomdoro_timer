@@ -5,7 +5,7 @@
                 <a :href="githubLink">Contribute to Source Code</a>
             </button>
             <button id="button" class="desktop">
-                <a href="#">Download Desktop App</a>
+                <a href="#">Desktop App (Soon...)</a>
             </button>
             <button id="button" class="feedback">
                 <a href="#">Submit Your Feedback</a>

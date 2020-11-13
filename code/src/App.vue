@@ -35,7 +35,6 @@ export default {
   },
   watch: {
     appMode() {
-      console.log('hit')
       if (this.appMode === 'selection') {
         this.showClock = false
         this.showSelection = true

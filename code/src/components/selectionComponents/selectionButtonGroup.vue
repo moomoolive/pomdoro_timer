@@ -34,7 +34,7 @@ export default {
     },
     methods: {
         changeInterval(interval) {
-            this.$store.dispatch('changeInterval', interval)
+            this.$emit('change-interval', interval)
         }
     },
     computed: {

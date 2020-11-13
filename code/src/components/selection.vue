@@ -1,13 +1,13 @@
 <template>
     <div>
         <div style="height: 66%;">
-            <time-interval-selector />
+            <time-interval-selector @play="clock" />
         </div>
         <div style="height: 13%; margin-top: 1%;">
-            <selection-button-group />
+            <selection-button-group @change-interval="changeInterval" />
         </div>
         <div style="height: 8%; margin-top: 2%;">
-            <work-sessions />
+            <work-sessions @increment-sessions="incrementWorkSessions" />
         </div>
         <div style="height: 5%">
             <p class="sessionLabel">Sessions to Long Break</p>
@@ -32,13 +32,36 @@ export default {
 
         }
     },
+    methods: {
+        changeInterval(interval) {
+            this.$store.dispatch('changeInterval', interval)
+        },
+        incrementWorkSessions(number) {
+            if (this.sessions - 1 <= 1 && number === -1) {
+                alert(`You cannot have less than 2 work sessions!`)
+            } 
+            else if (this.sessions + 1 >= 11 && number === 1) {
+                alert(`You cannot have more than 10 work sessions!`)
+            }
+            else {
+                this.$store.dispatch('incrementSesssionNumber', number)
+            }
+        },
+        clock() {
+            this.$store.dispatch('changeAppMode', 'clock')
+        }
+    },
     computed: {
         timeInterval() {
             return this.$store.state.timeIntervalSelect
+        },
+        sessions() {
+            return this.$store.state.timeIntervals.workSessions
         }
     },
     created() {
         this.$store.dispatch('changeInterval', 'workInterval')
+        document.title = 'Pomodoro Timer'
     }
 }
 </script>

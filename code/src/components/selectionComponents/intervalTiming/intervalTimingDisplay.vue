@@ -6,7 +6,7 @@
             <p class="text description">Mins</p>
         </div>
         <div id="workInterval">
-            <p class="text description">Work Time:</p>
+            <p class="text description">Work Session:</p>
             <p class="text">{{ workInterval }}</p>
             <p class="text description">Mins</p>
         </div>

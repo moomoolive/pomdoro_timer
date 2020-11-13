@@ -1,5 +1,16 @@
 <template>
     <div>
+        <div v-if="audio"
+        style="z-index: 2; position: fixed"
+        class="soundPopup"
+        >   
+            <div style="margin-top: 10%;">
+                <p> {{ this.titleMessages[this.currentInterval] }} </p>
+                <button @click="audio = false">
+                    okay
+                </button>
+            </div>
+        </div>
         <div style="height: 8%;">
             <sessions-indicator />
         </div>
@@ -35,7 +46,13 @@ export default {
             showIndicator: true,
             showButtons: true,
             play: true,
-            nextInterval: ''
+            nextInterval: '',
+            titleMessages: {
+                longBreak: 'Long Break Finished!',
+                shortBreak: 'Short Break Finished!',
+                workInterval: 'Work Session is Finished!'
+            },
+            audio: false
         }
     },
     methods: {
@@ -51,10 +68,6 @@ export default {
         incrementSession(number) {
             this.$store.dispatch('updateCurrentSession', number) 
         },
-        playAlarm() {
-            const audio = new Audio(require('../assets/sound.mp3'))
-            audio.play()
-        },
         events(value) {
             if (value === 'changeInterval') {
                 this.$store.dispatch( value, this.nextInterval)
@@ -65,10 +78,11 @@ export default {
                 this.play = !this.play
             }
             else if (value === "timeFinished") {
+                document.title = this.titleMessages[this.currentInterval]
                 this.$store.dispatch('changeInterval', this.nextInterval)
                 this.play = false
                 this.rerender('showIndicator')
-                this.playAlarm()
+                this.audio = true
                 if (this.nextInterval === 'workInterval') this.incrementSession(1)
             }
             else if (value === 'stop') {
@@ -101,6 +115,16 @@ export default {
                     this.nextInterval = 'workInterval'
                     break
             }
+        },
+        audio() {
+            const x = setInterval(() => {
+                console.log('hi')
+                if (this.audio) {
+                    const sound = new Audio(require('../assets/sound.mp3'))
+                    sound.play()
+                }
+                else clearInterval(x)
+            }, 10_000)
         }
     },
     created() {
@@ -111,5 +135,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.soundPopup {
+    height: 20%;
+    width: 50%;
+    margin-top: 3%;
+    margin-left: 18%;
+    background: gray;
+    border: black solid;
+    border-radius: 5%;
+    text-align: center;
+}
 </style>

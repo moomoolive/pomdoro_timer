@@ -30,15 +30,7 @@ export default {
     },
     methods:{
         incrementWorkSessions(number) {
-            if (this.display - 1 <= 1 && number === -1) {
-                alert(`You cannot have less than 2 work sessions!`)
-            } 
-            else if (this.display + 1 >= 11 && number === 1) {
-                alert(`You cannot have more than 10 work sessions!`)
-            }
-            else {
-                this.$store.dispatch('incrementSesssionNumber', number)
-            }
+            this.$emit('increment-sessions', number)
         }
     },
     computed: {
