@@ -1,16 +1,11 @@
 <template>
     <div>
-        <div v-if="audio"
-        style="z-index: 2; position: fixed"
-        class="soundPopup"
-        >   
-            <div style="margin-top: 10%;">
-                <p> {{ this.titleMessages[this.currentInterval] }} </p>
-                <button @click="audio = false">
-                    okay
-                </button>
-            </div>
-        </div>
+        <pop-up
+        v-if="audio.state"
+        contents="sound"
+        :soundMessage="titleMessages.cachedMessage"
+        @stop-audio="audio.state = false"
+        />
         <div style="height: 8%;">
             <sessions-indicator />
         </div>
@@ -20,7 +15,7 @@
             @timer-finished="events"
             />
         </div>
-        <div style="height: 13%; z-index: 1; position:relative; margin-top: 2%;">
+        <div style="height: 13%; z-index: 3; position:relative; margin-top: 2%;">
             <clock-button-group
             v-if="showButtons" 
             @rerender="events"
@@ -39,7 +34,8 @@ export default {
     components: {
         clockButtonGroup,
         sessionsIndicator,
-        timeIndicator
+        timeIndicator,
+        popUp: () => import('./commonComponents/popUp.vue')
     },
     data() {
         return {
@@ -50,9 +46,13 @@ export default {
             titleMessages: {
                 longBreak: 'Long Break Finished!',
                 shortBreak: 'Short Break Finished!',
-                workInterval: 'Work Session is Finished!'
+                workInterval: 'Work Session Finished!',
+                cachedMessage: ''
             },
-            audio: false
+            audio: {
+                state: false,
+                repeated: 0
+            }
         }
     },
     methods: {
@@ -82,7 +82,7 @@ export default {
                 this.$store.dispatch('changeInterval', this.nextInterval)
                 this.play = false
                 this.rerender('showIndicator')
-                this.audio = true
+                this.audio.state = true
                 if (this.nextInterval === 'workInterval') this.incrementSession(1)
             }
             else if (value === 'stop') {
@@ -98,10 +98,17 @@ export default {
         },
         currentInterval() {
             return this.$store.state.timeIntervalSelect
+        },
+        audioState() {
+            return this.audio.state
+        },
+        audioFile() {
+            return this.$store.state.sound.audio
         }
     },
     watch: {
         currentInterval(newValue, oldValue) {
+            this.titleMessages.cachedMessage = this.titleMessages[oldValue]
             if (oldValue === 'longBreak' && newValue === 'workInterval') {
                 this.$store.dispatch('updateCurrentSession', - this.$store.state.timeIntervals.currentSession + 1)
             }
@@ -116,14 +123,17 @@ export default {
                     break
             }
         },
-        audio() {
+        audioState() {
             const x = setInterval(() => {
-                console.log('hi')
-                if (this.audio) {
-                    const sound = new Audio(require('../assets/sound.mp3'))
-                    sound.play()
+                if (this.audio.state && this.audio.repeated < 3 ) {
+                    this.audio.repeated++
+                    this.audioFile.play()
                 }
-                else clearInterval(x)
+                else {
+                    clearInterval(x)
+                    this.audio.state = false
+                    this.audio.repeated = 0
+                }
             }, 10_000)
         }
     },

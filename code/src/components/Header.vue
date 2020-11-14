@@ -2,7 +2,7 @@
     <div>
         <div id="left" v-if="!smallScreen">
             <button id="button" class="github">
-                <a :href="githubLink">Contribute to Source Code</a>
+                <a @click="openNewTab(githubLink)">Contribute to Source Code</a>
             </button>
             <button id="button" class="desktop">
                 <a href="#">Desktop App (Soon...)</a>
@@ -12,7 +12,12 @@
             </button>
         </div>
         <div id="right">
-            <selection-button id="right" icon="fas fa-cog"/>
+            <selection-button
+            @click.native="$emit('settings')"
+            ref="button"
+            id="right" 
+            icon="fas fa-cog"
+            />
         </div>
     </div>
 </template>
@@ -27,13 +32,48 @@ export default {
     },
     data() {
         return {
-            githubLink: "https://github.com/moomoolive/pomdoro_timer"
+            githubLink: "https://github.com/moomoolive/pomdoro_timer",
+            isMounted: false
+        }
+    },
+    methods: {
+        openNewTab(link) {
+            window.open(link, '_blank')
         }
     },
     computed: {
         smallScreen() {
             return this.$store.state.smallScreen
+        },
+        smallScreenIndicator1() {
+            if (this.isMounted) return this.$refs.button.windowHeight
+        },
+        smallScreenIndicator2() {
+            if (this.isMounted) return this.$refs.button.windowWidth
         }
+    },
+    watch: {
+        smallScreenIndicator1(oldValue, newValue) {
+            const screenLength = 520
+            if (newValue <= screenLength && oldValue > screenLength) {
+                this.$store.dispatch('screenSize', false)
+            }
+            else if (newValue > screenLength && oldValue <= screenLength) {
+                this.$store.dispatch('screenSize', true)
+            }
+        },
+        smallScreenIndicator2(oldValue, newValue) {
+            const screenLength = 850
+            if (newValue <= screenLength && oldValue > screenLength) {
+                this.$store.dispatch('screenSize', false)
+            }
+            else if (newValue > screenLength && oldValue <= screenLength) {
+                this.$store.dispatch('screenSize', true)
+            }
+        }
+    },
+    mounted() {
+        this.isMounted = true
     }
 }
 </script>
@@ -43,6 +83,8 @@ export default {
     text-align: right;
     position: relative;
     bottom: 50%;
+    width: 50%;
+    left: 50%;
 }
 
 #left {

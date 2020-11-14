@@ -23,7 +23,7 @@
                 <i :class="icon" style="color: white;"></i>
             </div>
             <div class="timer">
-                {{ time.minutes }} : {{ time.seconds }}
+                {{ this.time.minutes }} : {{ seconds }}
             </div>
         </div>
     </div>
@@ -41,8 +41,6 @@ export default {
                 isDestroyed: false
             },
             time: {
-                minutes: 10,
-                seconds: '00',
                 stopWatch: 0,
                 originalTime: 0
             },
@@ -63,21 +61,17 @@ export default {
                     clearInterval(x)
                     return
                 }
-                let secs = parseInt(this.time.seconds)
-                if (secs === 0 && this.time.minutes !== 0) {
-                    this.time.seconds = '59'
-                    this.time.minutes--
+                if (this.seconds === '00' && this.time.minutes !== 0) {
                     this.time.stopWatch++
-                    document.title = `(${this.time.minutes}:${this.time.seconds}) Pomodoro Timer`
+                    this.time.minutes--
+                    document.title = `(${this.time.minutes}:${this.seconds}) Pomodoro Timer`
                 }
-                else if (this.time.minutes === 0 && this.time.seconds === '00') {
+                else if (this.time.minutes === 0 && this.seconds === '00') {
                     this.$emit('timer-finished', 'timeFinished')
                     clearInterval(x)
                 } else {
-                    const k = secs - 1 < 10? `0${secs - 1}` : `${secs - 1}`
-                    this.time.seconds = k
                     this.time.stopWatch++
-                    document.title = `(${this.time.minutes}:${this.time.seconds}) Pomodoro Timer`
+                    document.title = `(${this.time.minutes}:${this.seconds}) Pomodoro Timer`
                 }
             }, 1000)
         }
@@ -93,6 +87,11 @@ export default {
             const totalTime = this.time.originalTime * 60
             const elapsedTimePercent = this.time.stopWatch/totalTime
             return Math.ceil(elapsedTimePercent*10_000)/10_000
+        },
+        seconds() {
+            const secs = this.time.stopWatch - ((this.time.originalTime - this.time.minutes - 1) * 60)
+            const x = secs + 1 > 51? `0${60 - secs}` : `${60 - secs}`
+            return x === '60' ? '00' : x 
         }
     },
     watch: {
@@ -176,10 +175,7 @@ export default {
     }
     &.two {
         float: right;
-        // I can't find a way to have the right-side fill to rotate without
-        // parts of it peeking out from behind the lining
-        // TBD 
-        transform-origin: 1.7% 48.8%;
+        transform-origin: 1% 48.9%;
     }
 }
 
@@ -204,12 +200,12 @@ export default {
 
 .lining {
     background: transparent;
-    border: gray solid 2vh;
+    border: gray solid 2.2vh;
     position: absolute;
     z-index: 2;
     border-radius: 50%;
     width: 60.05vh;
-    height: 102.2%;
+    height: 102.7%;
     left: -0.35%;
     bottom: -0.3%;
 }

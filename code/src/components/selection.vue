@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="position: relative; z-index: 0;">
         <div style="height: 66%;">
             <time-interval-selector @play="clock" />
         </div>

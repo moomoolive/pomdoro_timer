@@ -1,7 +1,12 @@
 <template>
   <div class="appContainer" id="app">
+    <pop-up
+    v-if="settingsMenu"
+    contents='settings'
+    @submit="settingsMenu = false"
+    />
     <div style="height: 7%;">
-      <Header />
+      <Header @settings="settingsMenu = true" />
     </div>
     <div v-if="showSelection">
       <selection />
@@ -20,12 +25,14 @@ export default {
   components: {
     Header,
     selection,
-    clock: () => import('./components/clock.vue') 
+    clock: () => import('./components/clock.vue'),
+    popUp: () => import('./components/commonComponents/popUp.vue')
   },
   data() {
     return {
       showSelection: true,
-      showClock: false
+      showClock: false,
+      settingsMenu: false
     }
   },
   computed: {
@@ -76,5 +83,7 @@ a {
   width: 85vw;
   margin: auto;
   margin-top: 3%;
+  position: relative;
+  z-index: 0;
 }
 </style>
