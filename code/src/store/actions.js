@@ -20,7 +20,7 @@ export default {
     setDefaults({ commit }, payload) {
         commit('setDefaults', payload)
     },
-    changeSound({ commit }, name) {
-        commit('changeSound', name)
+    changeSound({ commit }, payload) {
+        commit('changeSound', payload)
     }
 }

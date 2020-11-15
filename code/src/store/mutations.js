@@ -25,18 +25,8 @@ export default {
         state.timeIntervals.longBreak = payload.longBreak
         state.timeIntervals.workSessions = payload.workSessions
     },
-    changeSound(state, name) {
-        state.sound.name = name 
-        switch(name) {
-            case 'Trumpet':
-                state.sound.audio = new Audio(require('../assets/military-trumpet.mp3'))
-                break
-            case 'Cat':
-                state.sound.audio = new Audio(require('../assets/cat-meowing.mp3'))
-                break
-            case 'Cucko-clock':
-                state.sound.audio = new Audio(require('../assets/cuckoo-clock.mp3'))
-                break
-        }
+    changeSound(state, payload) {
+        state.sound.name = payload.name 
+        state.sound.audio = payload.audio
     }
 }

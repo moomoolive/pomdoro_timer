@@ -62,6 +62,7 @@ export default {
     created() {
         this.$store.dispatch('changeInterval', 'workInterval')
         document.title = 'Pomodoro Timer'
+        if (Notification !== "denied" ) Notification.requestPermission()
     }
 }
 </script>

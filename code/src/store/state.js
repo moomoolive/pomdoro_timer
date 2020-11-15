@@ -1,7 +1,7 @@
 export default {
     timeIntervals: {
         shortBreak: 5,
-        workInterval: 25,
+        workInterval: 1,
         longBreak: 30,
         workSessions: 4,
         currentSession: 1
@@ -11,6 +11,6 @@ export default {
     smallScreen: false,
     sound: {
         audio: new Audio(require('../assets/cuckoo-clock.mp3')),
-        name: 'Cucko-clock'
+        name: 'cuckooClock'
     }
 }

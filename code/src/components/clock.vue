@@ -68,10 +68,16 @@ export default {
         incrementSession(number) {
             this.$store.dispatch('updateCurrentSession', number) 
         },
+        notifyMe() {
+            if (Notification.permission === "granted") {
+                const notification = new Notification(this.titleMessages.cachedMessage);
+            }
+        },
         events(value) {
             if (value === 'changeInterval') {
                 this.$store.dispatch( value, this.nextInterval)
                 this.rerender('showIndicator')
+                this.play = true
                 if (this.nextInterval === 'workInterval') this.incrementSession(1)
             }
             else if (value === 'pause/play') {
@@ -127,6 +133,7 @@ export default {
             const x = setInterval(() => {
                 if (this.audio.state && this.audio.repeated < 3 ) {
                     this.audio.repeated++
+                    this.notifyMe()
                     this.audioFile.play()
                 }
                 else {

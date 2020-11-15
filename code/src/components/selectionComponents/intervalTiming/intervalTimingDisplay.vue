@@ -99,5 +99,8 @@ export default {
 .button {
     position: relative;
     top: 10%;
+    background: gray;
+    color: white;
+    
 }
 </style>

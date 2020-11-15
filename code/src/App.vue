@@ -20,6 +20,7 @@
 <script>
 import Header from './components/Header.vue'
 import selection from './components/selection.vue'
+import soundsHTML from './components/commonComponents/sounds.js'
 
 export default {
   components: {
@@ -54,7 +55,15 @@ export default {
   },
   created() {
     const defaults = JSON.parse(localStorage.getItem('default'))
+    const sound = JSON.parse(localStorage.getItem('sound'))
     if (defaults) this.$store.dispatch('setDefaults', defaults)
+    if (sound) {
+      const payload = {
+        name: sound,
+        audio: soundsHTML[sound]
+      }
+      this.$store.dispatch('changeSound', payload)
+    }
   }
 }
 </script>
