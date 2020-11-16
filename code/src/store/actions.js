@@ -22,5 +22,8 @@ export default {
     },
     changeSound({ commit }, payload) {
         commit('changeSound', payload)
+    },
+    isElectron({commit}) {
+        commit('isElectron')
     }
 }

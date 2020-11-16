@@ -28,5 +28,8 @@ export default {
     changeSound(state, payload) {
         state.sound.name = payload.name 
         state.sound.audio = payload.audio
+    },
+    isElectron(state) {
+        state.isElectron = true
     }
 }

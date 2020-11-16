@@ -4,7 +4,11 @@
             <button id="button" class="github">
                 <a @click="openNewTab(githubLink)">Contribute to Source Code</a>
             </button>
-            <button id="button" class="desktop">
+            <button
+            v-if="!isElectron"
+            id="button" 
+            class="desktop"
+            >
                 <a href="#">Desktop App (Soon...)</a>
             </button>
             <button id="button" class="feedback">
@@ -33,7 +37,8 @@ export default {
     data() {
         return {
             githubLink: "https://github.com/moomoolive/pomdoro_timer",
-            isMounted: false
+            isMounted: false,
+            isElectron: false
         }
     },
     methods: {
@@ -74,6 +79,7 @@ export default {
     },
     mounted() {
         this.isMounted = true
+        this.isElectron = this.$store.state.isElectron
     }
 }
 </script>
