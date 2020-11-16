@@ -6,6 +6,6 @@
 
 A pomodoro timer web app, with a simple and intuitive UI.
 
-Built with Vuejs and fontawesome.
+Built with Vuejs, Bootstrap, and Fontawesome.
 
 A big thank you to Ashfaq Ahmed for his 'CSS Percentage Circle' [blog post](https://codeconvey.com/css-percentage-circle/). It served as the main inspiration for the percentage circle I have in the app.
