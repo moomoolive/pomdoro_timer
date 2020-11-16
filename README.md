@@ -4,7 +4,7 @@
 
 # Pomodoro Timer
 
-A pomodoro timer web app, with a simple and intuitive UI. Built with Vuejs, Bootstrap, and Fontawesome.
+A simple and intuitive pomodoro timer web/desktop app - built with Vuejs, Bootstrap, Fontawesome, and Electron.
 
 Start using the app by visiting this [link](https://pomotimer.site/).
 
