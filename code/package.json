@@ -1,7 +1,9 @@
 {
-  "name": "pomdoro_timer",
+  "name": "pomodoro_timer",
   "version": "0.1.0",
   "private": true,
+  "author": "Mostafa Elbannan",
+  "license": "MIT",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",

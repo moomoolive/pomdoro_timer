@@ -65,6 +65,11 @@ export default {
         }
         this.$store.dispatch('changeSound', payload)
       }
+    },
+    checkSmallScreen() {
+      if (window.innerHeight <= 520 || window.innerWidth <= 850) {
+        this.$store.dispatch('screenSize', true)
+      }
     }
   },
   computed: {
@@ -87,6 +92,7 @@ export default {
   created() {
     if (this.isElectron()) this.$store.dispatch('isElectron')
     this.getUserSettings()
+    this.checkSmallScreen()
   }
 }
 </script>
