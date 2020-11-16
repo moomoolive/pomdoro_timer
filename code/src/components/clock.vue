@@ -70,7 +70,10 @@ export default {
         },
         notifyMe() {
             if (Notification.permission === "granted") {
-                const notification = new Notification(this.titleMessages.cachedMessage);
+                const notification = new Notification(
+                    this.titleMessages.cachedMessage,
+                    {tag: this.audio.repeated}
+                    )
             }
         },
         events(value) {
@@ -132,8 +135,8 @@ export default {
         audioState() {
             const x = setInterval(() => {
                 if (this.audio.state && this.audio.repeated < 3 ) {
-                    this.audio.repeated++
                     this.notifyMe()
+                    this.audio.repeated++
                     this.audioFile.play()
                 }
                 else {
@@ -141,7 +144,7 @@ export default {
                     this.audio.state = false
                     this.audio.repeated = 0
                 }
-            }, 10_000)
+            }, 20_000)
         }
     },
     created() {

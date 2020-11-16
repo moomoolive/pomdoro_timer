@@ -1,7 +1,7 @@
 <template>
     <div ref="container">
         <button
-        :class="'button ' + color"
+        :class="'selectButton ' + color"
         :style="`width: ${buttonSize}px; height: ${buttonSize}px; font-size: ${textSize}px;`"
         >
             <div v-if="!!text" style="height: 40%;">
@@ -69,7 +69,7 @@ export default {
 </script>
 
 <style lang="scss" scoped> 
-.button {
+.selectButton {
     border-radius: 50%;
     border-color: grey;
     border-width: 0.05em;
