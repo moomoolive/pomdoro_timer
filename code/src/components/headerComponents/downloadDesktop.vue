@@ -16,7 +16,7 @@
                 </div>
             </div>
             <div class="download two">
-                <p class="text">MAC - OSX</p>
+                <p class="text">Linux (soon..)</p>
                 <div class="downloadButton">
                     <selection-button
                     icon="fas fa-cloud-download-alt"
