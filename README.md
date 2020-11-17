@@ -4,11 +4,11 @@
 
 # Pomodoro Timer
 
-A pomodoro timer web app, with a simple and intuitive UI. Built with Vuejs, Bootstrap, and Fontawesome.
+A simple and intuitive pomodoro timer web/desktop app - built with Vuejs, Bootstrap, Fontawesome, and Electron.
 
 Start using the app by visiting this [link](https://pomotimer.site/).
 
-Download the Desktop App >> here
+Download the Desktop App by visiting the website and clicking 'Download Desktop App'.
 
 If you want to help extend the program or request extra features open a pull request. Likewise, if you want to help with the Desktop app here's the [repository](https://github.com/moomoolive/pomodoro_timer_desktop).
 
