@@ -2,8 +2,15 @@
   "name": "pomodoro_timer",
   "version": "0.1.0",
   "private": true,
-  "author": "Mostafa Elbannan",
+  "author": {
+    "name": "Mostafa Elbannan",
+    "email": "mostafaelbannan1@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/moomoolive/pomdoro_timer/issues"
+  },
   "license": "MIT",
+  "homepage": "https://pomotimer.site/",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",

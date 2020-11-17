@@ -1,5 +1,10 @@
 <template>
     <div>
+        <download-desktop
+        v-if="showDownload"
+        style="position: fixed; z-index: 1"
+        @close="showDownload = false"
+        />
         <div id="left" v-if="!smallScreen">
             <button id="button" class="github">
                 <a @click="openNewTab(githubLink)">Contribute to Source Code</a>
@@ -9,7 +14,7 @@
             id="button" 
             class="desktop"
             >
-                <a href="#">Desktop App (Soon...)</a>
+                <a @click="showDownload = true">Desktop App (Soon...)</a>
             </button>
             <button id="button" class="feedback">
                 <a href="#">Submit Your Feedback</a>
@@ -32,13 +37,15 @@ import selectionButton from "./commonComponents/selectionButton"
 export default {
     name: "Header",
     components: {
-        selectionButton
+        selectionButton,
+        downloadDesktop: () => import ("./headerComponents/downloadDesktop.vue")
     },
     data() {
         return {
             githubLink: "https://github.com/moomoolive/pomdoro_timer",
             isMounted: false,
-            isElectron: false
+            isElectron: false,
+            showDownload: false
         }
     },
     methods: {
@@ -65,6 +72,7 @@ export default {
             }
             else if (newValue > screenLength && oldValue <= screenLength) {
                 this.$store.dispatch('screenSize', true)
+                this.showDownload = false
             }
         },
         smallScreenIndicator2(oldValue, newValue) {
@@ -74,6 +82,7 @@ export default {
             }
             else if (newValue > screenLength && oldValue <= screenLength) {
                 this.$store.dispatch('screenSize', true)
+                this.showDownload = false
             }
         }
     },
