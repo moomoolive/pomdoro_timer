@@ -6,10 +6,10 @@
 
 A simple and intuitive pomodoro timer web/desktop app - built with Vuejs, Bootstrap, Fontawesome, and Electron.
 
-Start using the app by visiting this [link](https://pomotimer.site/).
+Start using the app by visiting this (https://pomotimer.site/).
 
-Download the Desktop App by visiting the website and clicking 'Download Desktop App'.
+Download the Desktop App by visiting the website and clicking 'Download Desktop App', or you can clone this repo and build the app yourself via cli.
 
-If you want to help extend the program or request extra features open a pull request. Likewise, if you want to help with the Desktop app here's the [repository](https://github.com/moomoolive/pomodoro_timer_desktop).
+If you want to help extend the program or request extra features open a pull request or an issue.
 
 A big thank you to Ashfaq Ahmed for his 'CSS Percentage Circle' [blog post](https://codeconvey.com/css-percentage-circle/). It served as the main inspiration for the percentage circle I have in the app.
