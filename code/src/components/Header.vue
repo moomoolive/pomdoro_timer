@@ -17,7 +17,7 @@
                 <a @click="showDownload = true">Desktop App (Soon...)</a>
             </button>
             <button id="button" class="feedback">
-                <a href="#">Submit Your Feedback</a>
+                <a @click="openNewTab(feedbackForm)">Submit Your Feedback</a>
             </button>
         </div>
         <div id="right">
@@ -43,6 +43,7 @@ export default {
     data() {
         return {
             githubLink: "https://github.com/moomoolive/pomdoro_timer",
+            feedbackForm: "https://forms.gle/vC2G9cuPccdH57aW7",
             isMounted: false,
             isElectron: false,
             showDownload: false
