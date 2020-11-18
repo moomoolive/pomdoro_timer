@@ -28,6 +28,7 @@
 import clockButtonGroup from './clockComponents/clockButtonGroup.vue'
 import sessionsIndicator from './clockComponents/sessionsIndicator.vue'
 import timeIndicator from './clockComponents/timeIndicator.vue'
+import { Howl, Howler } from 'howler'
 
 export default {
     name: 'clock',

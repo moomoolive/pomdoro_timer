@@ -1,3 +1,5 @@
+import soundsHTML from '../components/commonComponents/sounds.js'
+
 export default {
     timeIntervals: {
         shortBreak: 5,
@@ -10,7 +12,7 @@ export default {
     timeIntervalSelect: 'workInterval',
     smallScreen: false,
     sound: {
-        audio: new Audio(require('../assets/cuckoo-clock.mp3')),
+        audio: soundsHTML.cuckooClock,
         name: 'cuckooClock'
     },
     isElectron: false
