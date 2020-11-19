@@ -72,44 +72,44 @@ export default {
     top: 50%;
 }
 
-#time4 {
+#time10 {
     position: relative;
     top: 70%;
     left: 1.5%;
 }
 
-#time5 {
+#time4 {
     position: relative;
     top: 70%;
     right: -67%;
 }
 
-#time6 {
+#time9 {
     position: relative;
     left: 23%;
     top: 5%;
 }
 
-#time7 {
+#time8 {
     position: relative;
     left: 65%;
     top: 8%;
 }
 
-#time8 {
+#time7 {
     text-align: center;
     position: relative;
     top: 157%;
 }
 
 
-#time9 {
+#time5 {
     position: relative;
     right: -45%;
     top: 5%;
 }
 
-#time10 {
+#time6 {
     position: relative;
     right: -0%;
     top: 13%;

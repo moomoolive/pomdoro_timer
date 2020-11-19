@@ -29,7 +29,7 @@
         </div>
         <div style="grid-row: 2; grid-column: 1;">
             <div style="height: 40%;">
-                <interval-button buttonNumber="4" />
+                <interval-button buttonNumber="10" />
             </div>
         </div>
         <div class="middleGrid">
@@ -37,28 +37,28 @@
         </div>
         <div style="grid-row: 2; grid-column: 3;">
             <div style="height: 40%;">
-                <interval-button buttonNumber="5" />
+                <interval-button buttonNumber="4" />
             </div>
         </div>
         <div style="grid-row: 3; grid-column: 1;">
             <div style="height: 40%;">
-                <interval-button buttonNumber="6" />
+                <interval-button buttonNumber="9" />
             </div>
-            <div style="height: 40%;">
-                <interval-button buttonNumber="7" />
-            </div>
-        </div>
-        <div style="grid-row: 3; grid-column: 2;">
             <div style="height: 40%;">
                 <interval-button buttonNumber="8" />
             </div>
         </div>
+        <div style="grid-row: 3; grid-column: 2;">
+            <div style="height: 40%;">
+                <interval-button buttonNumber="7" />
+            </div>
+        </div>
         <div style="grid-row: 3; grid-column: 3;">
             <div style="height: 40%;">
-                <interval-button buttonNumber="9" />
+                <interval-button buttonNumber="5" />
             </div>
             <div style="height: 40%;">
-                <interval-button buttonNumber="10" />
+                <interval-button buttonNumber="6" />
             </div>
         </div>
     </div>
