@@ -7,7 +7,7 @@
             <div class="download one">
                 <p class="text">Windows</p>
                 <div class="downloadButton">
-                    <a :href="`${publicPath}windowsDesktop.exe`" download>
+                    <a :href="publicPath + 'pomodoroTimerDesktop.exe'" download>
                     <selection-button
                     icon="fas fa-cloud-download-alt"
                     color="green"
