@@ -1,5 +1,5 @@
 <template>
-    <div :class="'timeDisplay ' + backgroundColor">
+    <div :class="'timeDisplay ' + nextInterval">
         <div
         class="innerCircle one"
         :style="`transform: rotate(${fill1.degrees}deg);`"
@@ -20,7 +20,9 @@
         </div>
         <div class="container">
             <div class="icon">
-                <i :class="icon" style="color: white;"></i>
+                <img
+                :src="iconSrc"
+                >
             </div>
             <div class="timer">
                 {{ this.time.minutes }} : {{ seconds }}
@@ -34,7 +36,6 @@ export default {
     name: "timeIndicator",
     data() {
         return {
-            backgroundColor: '',
             icon: '',
             lifeCycleSignals: {
                 isMounted: false,
@@ -56,8 +57,9 @@ export default {
     },
     methods: {
         countDown() {
+            const oneSecond = 1_000
             const x = setInterval(() => {
-                if (this.appMode === 'selection' || !this.isPlaying || this.lifeCycleSignals.isDestroyed) {
+                if ( !this.isPlaying || this.lifeCycleSignals.isDestroyed) {
                     clearInterval(x)
                     return
                 }
@@ -73,15 +75,12 @@ export default {
                     this.time.stopWatch++
                     document.title = `(${this.time.minutes}:${this.seconds}) Pomodoro Timer`
                 }
-            }, 1000)
+            }, oneSecond)
         }
     },
     computed: {
         isPlaying() {
             if (this.lifeCycleSignals.isMounted) return this.$parent.play
-        },
-        appMode() {
-        return this.$store.state.mode
         },
         fillMover() {
             const totalTime = this.time.originalTime * 60
@@ -92,6 +91,15 @@ export default {
             const secs = this.time.stopWatch - ((this.time.originalTime - this.time.minutes - 1) * 60)
             const x = secs + 1 > 51? `0${60 - secs}` : `${60 - secs}`
             return x === '60' ? '00' : x 
+        },
+        iconSrc() {
+            return require(`../../assets/icons/${this.icon}-solid.svg`)
+        },
+        nextInterval() {
+            return this.$store.getters.nextInterval
+        },
+        currentInterval() {
+            return this.$store.state.timeIntervalSelect
         }
     },
     watch: {
@@ -101,13 +109,13 @@ export default {
         fillMover() {
             if (this.fillMover >= 0.4_999) {
                 this.fill2.degrees = 0
-                this.fill2.color = this.backgroundColor
+                this.fill2.color = this.nextInterval
 
                 this.fill1.degrees = (this.fillMover - 0.5) * 360
             } 
             else if (this.fillMover >= 0.9_999) {
                 this.fill1.degrees = 0
-                this.fill1.color = this.backgroundColor
+                this.fill1.color = this.nextInterval
             } else {
                 this.fill2.degrees = (this.fillMover * 360)
             }
@@ -119,18 +127,15 @@ export default {
         this.time.minutes = this.time.originalTime = times[currentInterval]
         switch(currentInterval) {
                 case 'workInterval':
-                    this.icon = 'fas fa-briefcase'
-                    this.backgroundColor = 'shortBreak'
+                    this.icon = 'briefcase'
                     this.fill1.color = this.fill2.color = 'workInterval'
                     break
                 case 'shortBreak':
-                    this.icon = "fas fa-coffee"
-                    this.backgroundColor = 'workInterval'
+                    this.icon = "coffee"
                     this.fill1.color = this.fill2.color = 'shortBreak'
                     break
                 case 'longBreak':
-                    this.icon = "fas fa-bed"
-                    this.backgroundColor = 'workInterval'
+                    this.icon = "bed"
                     this.fill1.color = this.fill2.color = 'longBreak'
                     break 
         }
@@ -219,8 +224,10 @@ export default {
 
 .icon {
     position: relative;
+    margin-left: auto;
+    margin-right: auto;
     top: 40%;
-    text-align: center;
-    font-size: 10vh;
+    height: 10vh;
+    width: 10vh
 }
 </style>

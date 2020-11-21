@@ -57,9 +57,6 @@ export default {
         }
     },
     methods: {
-        // Components with fontawesome icons need to be rerendered to
-        // dynamically swap icons.
-        // or at least that was the easiest way I found...
         rerender(component) {
             this[component] = false
             this.$nextTick(() => {
@@ -75,7 +72,7 @@ export default {
                 const notification = new Notification(
                     this.titleMessages.cachedMessage,
                     {tag: this.audio.repeated}
-                    )
+                )
             }
         },
         events(value) {
@@ -95,7 +92,6 @@ export default {
                 this.audio.state = true
                 if (this.nextInterval === 'workInterval') this.incrementSession(1)
             }
-            this.rerender('showButtons')
         }
     },
     computed: {

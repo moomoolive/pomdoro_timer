@@ -2,16 +2,15 @@
     <div ref="container">
         <button
         :class="'selectButton ' + color"
-        :style="`width: ${buttonSize}px; height: ${buttonSize}px; font-size: ${textSize}px;`"
+        :style="`width: ${buttonSize}px; height: ${buttonSize}px;`"
         >
-            <div v-if="!!text" style="height: 40%;">
+            <div v-if="!!text" :style="`height: 40%;`">
                 <p class="text">{{ text }}</p>
             </div>
             <img
             v-if="!!icon" 
             :src="iconSrc"
             :style="`height: ${iconSize}px; width: ${iconSize}px;`"
-            style="position: relative; bottom: 5%;"
             >
         </button>
     </div>
@@ -47,9 +46,6 @@ export default {
     computed: {
         buttonSize() {
             return this.height * 0.9
-        },
-        textSize() {
-            return this.height * 0.3
         },
         iconSize() {
             return this.height * 0.35
