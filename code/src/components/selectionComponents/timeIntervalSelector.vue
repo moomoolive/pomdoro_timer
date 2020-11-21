@@ -33,7 +33,7 @@
             </div>
         </div>
         <div class="middleGrid">
-            <selection-button id="playButton" icon="fas fa-play" @click.native="play" />
+            <selection-button id="playButton" icon="play" @click.native="play" />
         </div>
         <div style="grid-row: 2; grid-column: 3;">
             <div style="height: 40%;">
@@ -85,7 +85,7 @@ export default {
     },
     methods: {
         play() {
-            this.$emit('play')
+            this.$router.push('/timer')
         }
     },
     computed: {

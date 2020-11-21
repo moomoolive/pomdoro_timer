@@ -1,5 +1,10 @@
 <template>
-    <div>
+    <div style="height: 7%; position: relative; z-index: 1;">
+        <pop-up
+        v-if="showSettingsMenu"
+        contents='settings'
+        @submit="showSettingsMenu = false"
+        />
         <download-desktop
         v-if="showDownload"
         style="position: fixed; z-index: 1"
@@ -21,10 +26,10 @@
         </div>
         <div id="right">
             <selection-button
-            @click.native="$emit('settings')"
+            @click.native="showSettingsMenu = true"
             ref="button"
             id="right" 
-            icon="fas fa-cog"
+            icon="cog"
             />
         </div>
     </div>
@@ -37,14 +42,16 @@ export default {
     name: "Header",
     components: {
         selectionButton,
-        downloadDesktop: () => import ("./headerComponents/downloadDesktop.vue")
+        downloadDesktop: () => import ("./headerComponents/downloadDesktop.vue"),
+        popUp: () => import('../components/commonComponents/popUp.vue')
     },
     data() {
         return {
             githubLink: "https://github.com/moomoolive/pomodoro_timer",
             feedbackForm: "https://forms.gle/vC2G9cuPccdH57aW7",
             isMounted: false,
-            showDownload: false
+            showDownload: false,
+            showSettingsMenu: false
         }
     },
     methods: {

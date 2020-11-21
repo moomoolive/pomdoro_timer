@@ -7,11 +7,12 @@
             <div v-if="!!text" style="height: 40%;">
                 <p class="text">{{ text }}</p>
             </div>
-            <i
-            v-if="!!icon"
-            :class="icon"
-            style="color: white;"
-            ></i>
+            <img
+            v-if="!!icon" 
+            :src="iconSrc"
+            :style="`height: ${iconSize}px; width: ${iconSize}px;`"
+            style="position: relative; bottom: 5%;"
+            >
         </button>
     </div>
 </template>
@@ -49,6 +50,12 @@ export default {
         },
         textSize() {
             return this.height * 0.3
+        },
+        iconSize() {
+            return this.height * 0.35
+        }, 
+        iconSrc() {
+            return require(`../../assets/icons/${this.icon}-solid.svg`)
         }
     },
     watch: {

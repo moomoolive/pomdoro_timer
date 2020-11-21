@@ -31,6 +31,13 @@ export default {
         currentSession() {
             return this.$store.state.timeIntervals.currentSession
         }
+    },
+    watch: {
+        currentSession(newValue, oldValue) {
+            if (newValue > this.workSessions) {
+                this.$store.dispatch('updateCurrentSession', - this.$store.state.timeIntervals.currentSession + 1)
+            }
+        }
     }
 }
 </script>

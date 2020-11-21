@@ -25,18 +25,18 @@
 </template>
 
 <script>
-import clockButtonGroup from './clockComponents/clockButtonGroup.vue'
-import sessionsIndicator from './clockComponents/sessionsIndicator.vue'
-import timeIndicator from './clockComponents/timeIndicator.vue'
+import clockButtonGroup from '../components/clockComponents/clockButtonGroup.vue'
+import sessionsIndicator from '../components/clockComponents/sessionsIndicator.vue'
+import timeIndicator from '../components/clockComponents/timeIndicator.vue'
 import { Howl, Howler } from 'howler'
 
 export default {
-    name: 'clock',
+    name: 'timer',
     components: {
         clockButtonGroup,
         sessionsIndicator,
         timeIndicator,
-        popUp: () => import('./commonComponents/popUp.vue')
+        popUp: () => import('../components/commonComponents/popUp.vue')
     },
     data() {
         return {
@@ -70,6 +70,7 @@ export default {
             this.$store.dispatch('updateCurrentSession', number) 
         },
         notifyMe() {
+            if (Notification !== "denied" ) Notification.requestPermission()
             if (Notification.permission === "granted") {
                 const notification = new Notification(
                     this.titleMessages.cachedMessage,
@@ -79,7 +80,6 @@ export default {
         },
         events(value) {
             if (value === 'changeInterval') {
-                this.$store.dispatch( value, this.nextInterval)
                 this.rerender('showIndicator')
                 this.play = true
                 if (this.nextInterval === 'workInterval') this.incrementSession(1)
@@ -95,10 +95,6 @@ export default {
                 this.audio.state = true
                 if (this.nextInterval === 'workInterval') this.incrementSession(1)
             }
-            else if (value === 'stop') {
-                this.$store.dispatch('changeAppMode', 'selection')
-                return
-            }
             this.rerender('showButtons')
         }
     },
@@ -106,22 +102,19 @@ export default {
         isLastSession() {
             return this.$store.getters.isLastSession
         },
-        currentInterval() {
-            return this.$store.state.timeIntervalSelect
-        },
         audioState() {
             return this.audio.state
         },
         audioFile() {
             return this.$store.state.sound.audio
+        },
+        currentInterval() {
+            return this.$store.state.timeIntervalSelect
         }
     },
     watch: {
         currentInterval(newValue, oldValue) {
             this.titleMessages.cachedMessage = this.titleMessages[oldValue]
-            if (oldValue === 'longBreak' && newValue === 'workInterval') {
-                this.$store.dispatch('updateCurrentSession', - this.$store.state.timeIntervals.currentSession + 1)
-            }
             switch(newValue) {
                 case 'workInterval':
                     if (this.isLastSession) this.nextInterval = 'longBreak'

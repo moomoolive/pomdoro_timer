@@ -34,13 +34,14 @@ export default {
     },
     methods: {
         nextInterval(interval) {
+            this.$store.dispatch('changeInterval', this.nextInterval)
             this.$emit('rerender', 'changeInterval')
         },
         pausePlay() {
             this.$emit('rerender', 'pause/play')
         },
         toSelection() {
-            this.$emit('rerender', 'stop')
+            this.$router.push('/')
         }
     },
     created() {
