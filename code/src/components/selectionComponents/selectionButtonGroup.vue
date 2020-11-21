@@ -4,6 +4,7 @@
         ref="button"
         icon="fas fa-coffee"
         color="green"
+        id="shortBreak"
         @click.native="changeInterval('shortBreak')"
         />
         <selection-button
