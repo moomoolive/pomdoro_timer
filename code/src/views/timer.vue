@@ -1,10 +1,9 @@
 <template>
     <div>
         <pop-up
-        v-if="audio.state"
+        v-if="audio"
         contents="sound"
-        :soundMessage="titleMessages.cachedMessage"
-        @stop-audio="audio.state = false"
+        @stop-audio="audio = false"
         />
         <div style="height: 8%;">
             <sessions-indicator />
@@ -16,10 +15,7 @@
             />
         </div>
         <div style="height: 13%; z-index: 3; position:relative; margin-top: 2%;">
-            <clock-button-group
-            v-if="showButtons" 
-            @rerender="events"
-            />
+            <clock-button-group @rerender="events" />
         </div>
     </div>
 </template>
@@ -41,19 +37,8 @@ export default {
     data() {
         return {
             showIndicator: true,
-            showButtons: true,
             play: true,
-            nextInterval: '',
-            titleMessages: {
-                longBreak: 'Long Break Finished!',
-                shortBreak: 'Short Break Finished!',
-                workInterval: 'Work Session Finished!',
-                cachedMessage: ''
-            },
-            audio: {
-                state: false,
-                repeated: 0
-            }
+            audio: false
         }
     },
     methods: {
@@ -63,83 +48,23 @@ export default {
                     this[component] = true
                 })
         },
-        incrementSession(number) {
-            this.$store.dispatch('updateCurrentSession', number) 
-        },
-        notifyMe() {
-            if (Notification !== "denied" ) Notification.requestPermission()
-            if (Notification.permission === "granted") {
-                const notification = new Notification(
-                    this.titleMessages.cachedMessage,
-                    {tag: this.audio.repeated}
-                )
-            }
-        },
         events(value) {
             if (value === 'changeInterval') {
                 this.rerender('showIndicator')
                 this.play = true
-                if (this.nextInterval === 'workInterval') this.incrementSession(1)
             }
             else if (value === 'pause/play') {
                 this.play = !this.play
             }
             else if (value === "timeFinished") {
-                document.title = this.titleMessages[this.currentInterval]
-                this.$store.dispatch('changeInterval', this.nextInterval)
                 this.play = false
                 this.rerender('showIndicator')
-                this.audio.state = true
-                if (this.nextInterval === 'workInterval') this.incrementSession(1)
+                this.audio = true
             }
-        }
-    },
-    computed: {
-        isLastSession() {
-            return this.$store.getters.isLastSession
-        },
-        audioState() {
-            return this.audio.state
-        },
-        audioFile() {
-            return this.$store.state.sound.audio
-        },
-        currentInterval() {
-            return this.$store.state.timeIntervalSelect
-        }
-    },
-    watch: {
-        currentInterval(newValue, oldValue) {
-            this.titleMessages.cachedMessage = this.titleMessages[oldValue]
-            switch(newValue) {
-                case 'workInterval':
-                    if (this.isLastSession) this.nextInterval = 'longBreak'
-                    else this.nextInterval = 'shortBreak'
-                    break
-                case 'longBreak':
-                case 'shortBreak':
-                    this.nextInterval = 'workInterval'
-                    break
-            }
-        },
-        audioState() {
-            const x = setInterval(() => {
-                if (this.audio.state && this.audio.repeated < 3 ) {
-                    this.notifyMe()
-                    this.audio.repeated++
-                    this.audioFile.play()
-                }
-                else {
-                    clearInterval(x)
-                    this.audio.state = false
-                    this.audio.repeated = 0
-                }
-            }, 20_000)
         }
     },
     created() {
         this.$store.dispatch('changeInterval', 'workInterval')
-        this.nextInterval = 'shortBreak'
     }
 }
 </script>

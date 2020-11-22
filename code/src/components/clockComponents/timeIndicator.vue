@@ -70,12 +70,17 @@ export default {
                 }
                 else if (this.time.minutes === 0 && this.seconds === '00') {
                     this.$emit('timer-finished', 'timeFinished')
+                    this.$store.dispatch('changeInterval', this.nextInterval)
                     clearInterval(x)
+                    if (this.nextInterval === 'workInterval') this.incrementSession(1)
                 } else {
                     this.time.stopWatch++
                     document.title = `(${this.time.minutes}:${this.seconds}) Pomodoro Timer`
                 }
             }, oneSecond)
+        },
+        incrementSession(number) {
+            this.$store.dispatch('updateCurrentSession', number) 
         }
     },
     computed: {

@@ -28,20 +28,18 @@ export default {
     data() {
         return {
             leftIcon: 'coffee',
-            middleIcon: 'pause',
-            leftButtonColor: 'green'
+            leftButtonColor: 'green',
+            isMounted: false
         }
     },
     methods: {
         changeInterval(interval) {
+            if (this.nextInterval === 'workInterval') this.incrementSession(1)
             this.$store.dispatch('changeInterval', this.nextInterval)
-            this.middleIcon = 'pause'
             this.leftButton()
             this.$emit('rerender', 'changeInterval')
         },
         pausePlay() {
-            if (this.middleIcon === 'pause') this.middleIcon = "play" 
-            else  this.middleIcon = "pause"
             this.$emit('rerender', 'pause/play')
         },
         toSelection() {
@@ -49,19 +47,22 @@ export default {
         },
         leftButton() {
             switch(this.nextInterval) {
-            case 'longBreak':
-                this.leftIcon = "bed"
-                this.leftButtonColor = 'brown'
-                break
-            case 'shortBreak':
-                this.leftIcon = 'coffee'
-                this.leftButtonColor = 'green'
-                break
-            case 'workInterval':
-                this.leftIcon = 'briefcase'
-                this.leftButtonColor = 'purple'
-                break
+                case 'longBreak':
+                    this.leftIcon = "bed"
+                    this.leftButtonColor = 'brown'
+                    break
+                case 'shortBreak':
+                    this.leftIcon = 'coffee'
+                    this.leftButtonColor = 'green'
+                    break
+                case 'workInterval':
+                    this.leftIcon = 'briefcase'
+                    this.leftButtonColor = 'purple'
+                    break
             }
+        },
+        incrementSession(number) {
+            this.$store.dispatch('updateCurrentSession', number) 
         }
     },
     computed: {
@@ -70,10 +71,16 @@ export default {
         },
         nextInterval() {
             return this.$store.getters.nextInterval
+        },
+        currentInterval() {
+            return this.$store.state.timeIntervalSelect
+        },
+        middleIcon() {
+            if (this.isMounted) return this.$parent.play? 'pause' : 'play'
         }
     },
-    created() {
-        
+    mounted() {
+        this.isMounted = true
     }
 }
 </script>
