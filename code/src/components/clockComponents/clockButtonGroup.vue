@@ -4,10 +4,12 @@
         :icon="leftIcon"
         :color="leftButtonColor"
         @click.native="changeInterval"
+        id="nextIntervalButton"
         />
         <selection-button
         :icon="middleIcon"
         @click.native="pausePlay"
+        id="playButton"
         />
         <selection-button
         icon="stop"

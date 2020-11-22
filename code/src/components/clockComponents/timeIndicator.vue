@@ -25,7 +25,7 @@
                 >
             </div>
             <div class="timer">
-                {{ this.time.minutes }} : {{ seconds }}
+                {{ this.time.minutes }} : <span id="timerSecs">{{ seconds }}</span>
             </div>
         </div>
     </div>
@@ -42,8 +42,8 @@ export default {
                 isDestroyed: false
             },
             time: {
-                stopWatch: 0,
-                originalTime: 0
+                originalTime: 0,
+                minutes: 0
             },
             fillLeft: {
                 color: '',
@@ -52,7 +52,8 @@ export default {
             fillRight: {
                 color: '',
                 degrees: 0
-            }
+            },
+            stopWatch: 0
         }
     },
     methods: {
@@ -64,7 +65,7 @@ export default {
                     return
                 }
                 if (this.seconds === '00' && this.time.minutes !== 0) {
-                    this.time.stopWatch++
+                    this.stopWatch++
                     this.time.minutes--
                     document.title = `(${this.time.minutes}:${this.seconds}) Pomodoro Timer`
                 }
@@ -74,7 +75,7 @@ export default {
                     clearInterval(x)
                     if (this.nextInterval === 'workInterval') this.incrementSession(1)
                 } else {
-                    this.time.stopWatch++
+                    this.stopWatch++
                     document.title = `(${this.time.minutes}:${this.seconds}) Pomodoro Timer`
                 }
             }, oneSecond)
@@ -90,12 +91,12 @@ export default {
         fillMover() {
             const secondsPerMinute = 60
             const totalTime = this.time.originalTime * secondsPerMinute
-            const elapsedTimePercent = this.time.stopWatch/totalTime
+            const elapsedTimePercent = this.stopWatch/totalTime
             const elapsedTimePercentRounded = Math.ceil(elapsedTimePercent * 10_000)/10_000
             return elapsedTimePercentRounded
         },
         seconds() {
-            const secs = this.time.stopWatch - ((this.time.originalTime - this.time.minutes - 1) * 60)
+            const secs = this.stopWatch - ((this.time.originalTime - this.time.minutes - 1) * 60)
             const x = secs + 1 > 51? `0${60 - secs}` : `${60 - secs}`
             return x === '60' ? '00' : x 
         },
