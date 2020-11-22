@@ -1,19 +1,19 @@
 <template>
     <div :class="'timeDisplay ' + nextInterval">
         <div
-        class="innerCircle one"
-        :style="`transform: rotate(${fill1.degrees}deg);`"
+        class="innerCircle left"
+        :style="`transform: rotate(${fillLeft.degrees}deg);`"
         >
             <div
-            :class="'fill one ' + fill1.color"
+            :class="'fill left ' + fillLeft.color"
             ></div>
         </div>
         <div
-        class="innerCircle two"
-        :style="`transform: rotate(${fill2.degrees}deg);`"
+        class="innerCircle right"
+        :style="`transform: rotate(${fillRight.degrees}deg);`"
         >
             <div
-            :class="'fill two ' + fill2.color"
+            :class="'fill right ' + fillRight.color"
             ></div>
         </div>
         <div class="lining">
@@ -45,11 +45,11 @@ export default {
                 stopWatch: 0,
                 originalTime: 0
             },
-            fill1: {
+            fillLeft: {
                 color: '',
                 degrees: 0
             },
-            fill2: {
+            fillRight: {
                 color: '',
                 degrees: 0
             }
@@ -88,9 +88,11 @@ export default {
             if (this.lifeCycleSignals.isMounted) return this.$parent.play
         },
         fillMover() {
-            const totalTime = this.time.originalTime * 60
+            const secondsPerMinute = 60
+            const totalTime = this.time.originalTime * secondsPerMinute
             const elapsedTimePercent = this.time.stopWatch/totalTime
-            return Math.ceil(elapsedTimePercent*10_000)/10_000
+            const elapsedTimePercentRounded = Math.ceil(elapsedTimePercent * 10_000)/10_000
+            return elapsedTimePercentRounded
         },
         seconds() {
             const secs = this.time.stopWatch - ((this.time.originalTime - this.time.minutes - 1) * 60)
@@ -112,17 +114,20 @@ export default {
             this.countDown()
         },
         fillMover() {
-            if (this.fillMover >= 0.4_999) {
-                this.fill2.degrees = 0
-                this.fill2.color = this.nextInterval
+            const fiftyPercent = 0.4_999
+            const oneHundredPercent = 0.9_999
+            const totalDegreesOfRotation = 360
+            if (this.fillMover >= fiftyPercent) {
+                this.fillRight.degrees = 0
+                this.fillRight.color = this.nextInterval
 
-                this.fill1.degrees = (this.fillMover - 0.5) * 360
-            } 
-            else if (this.fillMover >= 0.9_999) {
-                this.fill1.degrees = 0
-                this.fill1.color = this.nextInterval
+                this.fillLeft.degrees = (this.fillMover - fiftyPercent) * totalDegreesOfRotation
+            }
+            else if (this.fillMover >= oneHundredPercent) {
+                this.fillLeft.degrees = 0
+                this.fillLeft.color = this.nextInterval
             } else {
-                this.fill2.degrees = (this.fillMover * 360)
+                this.fillRight.degrees = (this.fillMover * totalDegreesOfRotation)
             }
         } 
     },
@@ -133,15 +138,15 @@ export default {
         switch(currentInterval) {
                 case 'workInterval':
                     this.icon = 'briefcase'
-                    this.fill1.color = this.fill2.color = 'workInterval'
+                    this.fillLeft.color = this.fillRight.color = 'workInterval'
                     break
                 case 'shortBreak':
                     this.icon = "coffee"
-                    this.fill1.color = this.fill2.color = 'shortBreak'
+                    this.fillLeft.color = this.fillRight.color = 'shortBreak'
                     break
                 case 'longBreak':
                     this.icon = "bed"
-                    this.fill1.color = this.fill2.color = 'longBreak'
+                    this.fillLeft.color = this.fillRight.color = 'longBreak'
                     break 
         }
     },
@@ -179,11 +184,11 @@ export default {
     position: relative;
     z-index: 1;
     animation: ease-in-out 1s;
-    &.one {
+    &.left {
         float: left;
         transform-origin: 100%  50%;
     }
-    &.two {
+    &.right {
         float: right;
         transform-origin: 1% 48.9%;
     }
@@ -196,7 +201,7 @@ export default {
     z-index: 1;
     border-style: none;
     border-width: 0.1vh;
-    &.two {
+    &.right {
         right: 0%;
     }
 }
