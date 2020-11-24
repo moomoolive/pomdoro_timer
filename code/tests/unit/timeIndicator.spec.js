@@ -22,16 +22,23 @@ describe('timeIndicator', () => {
             changeInterval: jest.fn()
         }
         store = new Vuex.Store({ state, actions })
+        const iconSrc = jest.spyOn(timeIndicator.computed, 'iconSrc')
     })
 
     it('The passing of a second changes timer display', async () => {
-        const spy = jest.spyOn(timeIndicator.computed, 'iconSrc')
         const wrapper = shallowMount(timeIndicator, { store, localVue })
-        await wrapper.setData({ stopWatch: 1})
+        wrapper.vm.time.stopWatch++
+        wrapper.vm.time.minutes--
         await localVue.nextTick()
-        expect(wrapper.vm.time.minutes).toBe(24)
-        wrapper.setData({ stopWatch: 2 })
-        const timeDisplayAfter = wrapper.vm.seconds
-        expect(timeDisplayBefore > timeDisplayAfter).toBeTruthy()
+        expect(wrapper.find("#timerSecs").text()).toBe('59')
+    })
+
+    it('Percentage circle moves as time goes on', async () => {
+        const wrapper = shallowMount(timeIndicator, { store, localVue })
+        wrapper.vm.time.stopWatch++
+        const fillDegressBefore = wrapper.vm.fillRight.degrees
+        await localVue.nextTick()
+        const fillDegreesAfter = wrapper.vm.fillRight.degrees
+        expect(fillDegreesAfter > fillDegressBefore).toBeTruthy()
     })
 })

@@ -4,6 +4,7 @@
         v-for="x in workSessions"
         :key="x"
         :class="'indicator ' + classType(x)"
+        :id="'indicator'+ x"
         >
         </div>
     </div>

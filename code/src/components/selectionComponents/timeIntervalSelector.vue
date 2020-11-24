@@ -1,5 +1,5 @@
 <template>
-    <div :class="'selector ' + selectorColor">
+    <div :class="'selector ' + selectorColor" id="container">
         <div style="grid-row: 1; grid-column: 1;">
             <div style="height: 40%;">
                 <interval-button buttonNumber="11" />
@@ -16,7 +16,7 @@
                 <interval-button buttonNumber="1" />
             </div>
             <div style="height: 40%;">
-                <p class="selectorMessage">{{ selectorMessage }}</p>
+                <p class="selectorMessage" id="message">{{ selectorMessage }}</p>
             </div>
         </div>
         <div style="grid-row: 1; grid-column: 3;">

@@ -3,7 +3,7 @@
         <div style="position: relative; top: 5%;">
             <p class="text">
                 {{ titleMessages[currentInterval] }} <br>
-                <button @click="$emit('stop-audio')" class="button">
+                <button @click="$emit('stop-audio')" class="button" id="stopSound">
                     <p style="font-size: 1.6vh;">Okay!</p>
                 </button>
             </p>
@@ -50,15 +50,15 @@ export default {
     created() {
         document.title = this.titleMessages[this.currentInterval]
         const twentySeconds = 20_000
+        const maxSoundRepitition = 3
         const x = setInterval(() => {
-            if (!this.isDestroyed && this.repeated < 3 ) {
+            if (!this.isDestroyed && this.repeated < maxSoundRepitition ) {
                 this.notifyMe()
                 this.repeated++
                 this.audioFile.play()
             }
             else {
                 clearInterval(x)
-                this.repeated = 0
             }
         }, twentySeconds)
     }

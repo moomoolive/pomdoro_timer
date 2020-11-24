@@ -1,7 +1,6 @@
 <template>
     <div class="container">
         <div class="button">
-            <selection-button icon="fas fa-times" @click.native="$emit('close')" />
         </div>
         <div>
             <div class="download one">
@@ -9,8 +8,10 @@
                 <div class="downloadButton">
                     <a :href="publicPath + 'pomodoroTimerDesktop.exe'" download>
                     <selection-button
-                    icon="fas fa-cloud-download-alt"
+                    icon="download"
                     color="green"
+                    id="windows"
+                    @click.native="close"
                     />
                     </a>
                 </div>
@@ -19,8 +20,9 @@
                 <p class="text">Linux (soon..)</p>
                 <div class="downloadButton">
                     <selection-button
-                    icon="fas fa-cloud-download-alt"
+                    icon="download"
                     color="green"
+                    @click.native="close"
                     />
                 </div>
             </div>
@@ -39,6 +41,11 @@ export default {
     data() {
         return {
             publicPath: process.env.BASE_URL
+        }
+    },
+    methods: {
+        close() {
+            this.$emit('close')
         }
     }
 }

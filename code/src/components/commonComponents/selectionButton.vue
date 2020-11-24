@@ -51,7 +51,7 @@ export default {
             return this.height * 0.35
         }, 
         iconSrc() {
-            return require(`../../assets/icons/${this.icon}-solid.svg`)
+            return require(`../../assets/icons/${this.icon}.svg`)
         }
     },
     watch: {

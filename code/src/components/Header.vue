@@ -11,24 +11,33 @@
         @close="showDownload = false"
         />
         <div id="left" v-if="!smallScreen">
-            <button id="button" class="github">
-                <a @click="openNewTab(githubLink)">Contribute to Source Code</a>
+            <button
+            id="buttonGit"
+            class="button github"
+            @click="openNewTab(githubLink)"
+            >
+                Contribute to Source Code
             </button>
             <button
-            id="button" 
-            class="desktop"
+            id="buttonDownload" 
+            class="button desktop"
+            @click="showDownload = !showDownload"
             >
-                <a @click="showDownload = true">Download Desktop App</a>
+                Download Desktop App
             </button>
-            <button id="button" class="feedback">
-                <a @click="openNewTab(feedbackForm)">Submit Your Feedback</a>
+            <button
+            id="buttonFeedback"
+            class="button feedback"
+            @click="openNewTab(feedbackForm)"
+            >
+                Submit Your Feedback
             </button>
         </div>
         <div id="right">
             <selection-button
             @click.native="showSettingsMenu = true"
             ref="button"
-            id="right" 
+            id="settingsButton" 
             icon="cog"
             />
         </div>
@@ -112,7 +121,7 @@ export default {
     width: 60%;
 }
 
-#button {
+.button {
     border-radius: 20%;
     height: 3vh;
     width: 15vh;
