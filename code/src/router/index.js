@@ -2,7 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import selection from '../views/selection.vue'
-import timer from '../views/timer.vue'
 
 Vue.use(VueRouter)
 
@@ -15,7 +14,7 @@ const routes = [
     {
         path: '/timer',
         name: 'pomodoro timer',
-        component: timer
+        component: () => import(/* webpackPrefetch: true */ '../views/timer.vue')
     }
 ]
 
